@@ -130,7 +130,7 @@
             background: rgba(13, 17, 23, 0.95); z-index: 3000;
             display: none; flex-direction: column; align-items: center; justify-content: center;
         }
-        #oyunKapatBtn {
+        #oyunKapatBtn, #memeKapatBtn {
             position: absolute; top: 20px; right: 20px;
             background: transparent; border: 2px solid white; color: white;
             padding: 8px 15px; border-radius: 20px; cursor: pointer; font-weight: bold;
@@ -146,7 +146,6 @@
             cursor: crosshair; user-select: none;
         }
 
-        /* YENİ: Oyun Bitti Ekranı Tasarımı */
         .game-over-container {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0, 0, 0, 0.85);
@@ -164,6 +163,19 @@
             font-size: 1.5rem; color: #ffffff; font-weight: bold;
             background: rgba(225, 48, 108, 0.8); padding: 5px 15px; border-radius: 10px;
             animation: fadeIn 1s ease;
+        }
+
+        /* Meme Ekranı Tasarımı */
+        #memeEkrani {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(13, 17, 23, 0.95); z-index: 4000;
+            display: none; flex-direction: column; align-items: center; justify-content: center;
+        }
+        #memeGorseli {
+            max-width: 90%; max-height: 60vh;
+            border-radius: 15px; border: 4px solid #e1306c;
+            box-shadow: 0 0 30px rgba(225, 48, 108, 0.6);
+            animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .container {
@@ -203,6 +215,17 @@
             box-shadow: 0 10px 25px rgba(220, 39, 67, 0.6);
         }
 
+        /* Meme butonuna özel farklı renk tasarımı */
+        .meme-btn {
+            background: linear-gradient(45deg, #1f618d, #2980b9);
+            border: none;
+            margin-top: 15px;
+        }
+        .meme-btn:hover {
+            background: linear-gradient(45deg, #2980b9, #1f618d);
+            box-shadow: 0 10px 25px rgba(41, 128, 185, 0.6);
+        }
+
         .ig-icon { margin-right: 10px; font-size: 1.3rem; }
 
         @keyframes popIn { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
@@ -225,12 +248,20 @@
     <button id="oyunButonu" onclick="oyunuAc()">🎮 Oyunu Oyna</button>
     <button id="sesButonu" onclick="sarkiOynatDurdur()">🔊 Sesi Kapat</button>
 
+    <!-- Oyun Ekranı -->
     <div id="oyunEkrani">
         <button id="oyunKapatBtn" onclick="oyunuKapat()">❌ Kapat</button>
         <h2 style="color:#e1306c;">🕸️ Ağ Fırlatma Eğitimi 🕸️</h2>
         <p style="font-size:1.2rem;">Puan: <span id="puan">0</span> | Kalan Can: <span id="can" style="color:red; font-weight:bold;">3</span></p>
         <button id="oyunBaslatBtn" class="giris-btn" onclick="oyunuBaslat()" style="margin-top:20px; font-size:1.2rem; padding:10px 25px;">BAŞLA!</button>
         <div id="oyunAlani"></div>
+    </div>
+
+    <!-- YENİ: Meme Ekranı -->
+    <div id="memeEkrani">
+        <button id="memeKapatBtn" onclick="memeKapat()">❌ Kapat</button>
+        <img id="memeGorseli" src="" alt="Spidey Meme">
+        <button class="giris-btn" onclick="rastgeleMemeGoster()" style="margin-top:30px; font-size:1.1rem; padding:12px 25px;">🔄 Başka Göster</button>
     </div>
 
     <div id="anaIcerik" class="container">
@@ -244,6 +275,11 @@
         <a href="https://www.instagram.com/burakerataa" target="_blank" class="link-btn"><span class="ig-icon">📸</span> @burakerataa</a>
         <a href="https://www.instagram.com/abdullahdnmzz" target="_blank" class="link-btn"><span class="ig-icon">📸</span> @abdullahdnmzz</a>
         <a href="https://www.instagram.com/bahagkmn0" target="_blank" class="link-btn"><span class="ig-icon">📸</span> @bahagkmn0</a>
+        
+        <!-- YENİ: Rastgele Meme Butonu -->
+        <button class="link-btn meme-btn" onclick="rastgeleMemeGoster()" style="width: 100%; cursor: pointer;">
+            <span class="ig-icon">😂</span> Rastgele Spidey Meme
+        </button>
     </div>
 
     <script>
@@ -292,11 +328,28 @@
             }
         }
 
-        // --- GÜNCELLENMİŞ OYUN KODLARI ---
+        // --- MEME SİSTEMİ KODLARI ---
+        // Eğer daha fazla meme eklersen buraya meme6.jpg, meme7.jpg diye ekleyebilirsin
+        const memeListesi = ['meme1.jpg', 'meme2.jpg', 'meme3.jpg', 'meme4.jpg', 'meme5.jpg'];
+
+        function rastgeleMemeGoster() {
+            var rastgeleIndex = Math.floor(Math.random() * memeListesi.length);
+            var secilenMeme = memeListesi[rastgeleIndex];
+            
+            // Görseli değiştir ve ekranı göster
+            document.getElementById('memeGorseli').src = secilenMeme;
+            document.getElementById('memeEkrani').style.display = 'flex';
+        }
+
+        function memeKapat() {
+            document.getElementById('memeEkrani').style.display = 'none';
+        }
+
+        // --- OYUN KODLARI ---
         var oyunDongusu;
         var puan = 0;
         var can = 3;
-        var hiz = 3; // Başlangıç hızı arttırıldı
+        var hiz = 3; 
 
         function oyunuAc() {
             document.getElementById('oyunEkrani').style.display = 'flex';
@@ -313,7 +366,7 @@
         function oyunuBaslat() {
             puan = 0;
             can = 3;
-            hiz = 3.5; // Daha hızlı başlangıç
+            hiz = 3.5; 
             document.getElementById('puan').innerText = puan;
             document.getElementById('can').innerText = can;
             
@@ -322,18 +375,14 @@
             alan.style.display = 'block';
             alan.innerHTML = '';
 
-            // Bombalar artık çok daha sık çıkıyor (600ms = 0.6 saniye)
             oyunDongusu = setInterval(function() {
                 if(can <= 0) {
                     clearInterval(oyunDongusu);
-                    
-                    // Yeni havalı Oyun Bitti ekranı
                     alan.innerHTML = `
                         <div class="game-over-container">
                             <div class="game-over-title">OYUN BİTTİ!</div>
                             <div class="game-over-score">Puan: ${puan}</div>
                         </div>`;
-                        
                     setTimeout(() => { document.getElementById('oyunBaslatBtn').style.display = 'block'; }, 2000);
                     return;
                 }
@@ -361,7 +410,7 @@
                 }, 20); 
 
                 hedef.onmousedown = hedef.ontouchstart = function(e) {
-                    e.preventDefault(); // Telefondaki çift tıklama zoomunu engeller
+                    e.preventDefault(); 
                     clearInterval(dususDongusu);
                     hedef.innerText = '🕸️'; 
                     hedef.style.opacity = '0.5';
@@ -370,10 +419,9 @@
                     puan += 10;
                     document.getElementById('puan').innerText = puan;
                     
-                    // Puan arttıkça daha hızlı hızlanacak
                     if(puan % 40 === 0) hiz += 0.8;
                 };
-            }, 600); // 1000'den 600'e çektim, artık yağmur gibi yağacak!
+            }, 600); 
         }
     </script>
 </body>
