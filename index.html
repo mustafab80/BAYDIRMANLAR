@@ -21,6 +21,7 @@
             background-position: center;
             background-attachment: fixed;
             background-color: #0d1117;
+            transition: all 0.8s ease; 
         }
 
         body::before {
@@ -29,20 +30,19 @@
             top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0, 0, 0, 0.65); 
             z-index: -1;
+            transition: background 0.8s ease;
         }
 
         #particles-container {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none; 
-            z-index: 0; 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 0; 
         }
 
         .spider-web {
-            position: absolute;
-            top: -50px;
+            position: absolute; top: -50px;
             color: rgba(255, 255, 255, 0.3);
             animation: fall linear infinite;
+            transition: color 0.8s ease;
         }
 
         @keyframes fall {
@@ -53,41 +53,23 @@
         }
 
         #girisEkrani {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-image: url('AMUDA.jpeg');
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 2000;
-            transition: opacity 0.8s ease;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('AMUDA.jpeg'); background-size: cover; background-position: center;
+            display: flex; align-items: center; justify-content: center;
+            z-index: 2000; transition: opacity 0.8s ease;
         }
 
         #girisEkrani::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.85); 
-            z-index: -1;
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.85); z-index: -1;
         }
 
         .giris-btn {
-            background: linear-gradient(45deg, #e63946, #dc2743);
-            color: #ffffff;
-            border: none;
-            padding: 18px 35px;
-            font-size: 1.5rem;
-            font-weight: 800;
-            border-radius: 50px;
-            cursor: pointer;
-            box-shadow: 0 10px 30px rgba(220, 39, 67, 0.6);
-            transition: all 0.3s ease;
-            animation: pulse 1.5s infinite; 
-            z-index: 1;
+            background: linear-gradient(45deg, #e63946, #dc2743); color: #ffffff;
+            border: none; padding: 18px 35px; font-size: 1.5rem; font-weight: 800;
+            border-radius: 50px; cursor: pointer; box-shadow: 0 10px 30px rgba(220, 39, 67, 0.6);
+            transition: all 0.3s ease; animation: pulse 1.5s infinite; z-index: 1;
         }
-
         .giris-btn:hover { transform: scale(1.1); }
 
         @keyframes pulse {
@@ -96,33 +78,56 @@
             100% { box-shadow: 0 0 0 0 rgba(220, 39, 67, 0); }
         }
 
-        #anaIcerik, #sesButonu, #oyunButonu { display: none; }
+        /* Başlangıçta gizli olan elementler */
+        #anaIcerik, #sesButonu, #venomButonu, #oyunButonu, #memeButonu { display: none; }
 
+        /* --- ÜST KÖŞE BUTONLARI (KONTROL PANELİ) --- */
+        
+        /* SAĞ ÜST 1: Ses Butonu */
         #sesButonu {
-            position: fixed;
-            top: 20px; right: 20px;
-            background: rgba(22, 27, 34, 0.7);
-            backdrop-filter: blur(5px);
+            position: fixed; top: 20px; right: 20px;
+            background: rgba(22, 27, 34, 0.7); backdrop-filter: blur(5px);
             color: white; border: 1px solid rgba(255, 255, 255, 0.3);
             padding: 10px 18px; border-radius: 30px;
-            cursor: pointer; z-index: 1000;
-            font-weight: bold; font-size: 0.9rem;
+            cursor: pointer; z-index: 1000; font-weight: bold; font-size: 0.9rem;
             transition: all 0.3s ease;
         }
         #sesButonu:hover { background: #e1306c; transform: scale(1.1); border-color: transparent;}
 
+        /* SAĞ ÜST 2: Venom Butonu */
+        #venomButonu {
+            position: fixed; top: 70px; right: 20px;
+            background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(5px);
+            color: white; border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 10px 18px; border-radius: 30px;
+            cursor: pointer; z-index: 1000; font-weight: bold; font-size: 0.9rem;
+            transition: all 0.4s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.8);
+        }
+        #venomButonu:hover { background: #000; transform: scale(1.1); box-shadow: 0 0 20px rgba(255,255,255,0.4); border-color: transparent;}
+
+        /* SOL ÜST 1: Oyun Butonu */
         #oyunButonu {
-            position: fixed;
-            top: 20px; left: 20px;
-            background: rgba(22, 27, 34, 0.7);
-            backdrop-filter: blur(5px);
+            position: fixed; top: 20px; left: 20px;
+            background: rgba(22, 27, 34, 0.7); backdrop-filter: blur(5px);
             color: white; border: 1px solid rgba(255, 255, 255, 0.3);
             padding: 10px 18px; border-radius: 30px;
-            cursor: pointer; z-index: 1000;
-            font-weight: bold; font-size: 0.9rem;
+            cursor: pointer; z-index: 1000; font-weight: bold; font-size: 0.9rem;
             transition: all 0.3s ease;
         }
         #oyunButonu:hover { background: #e1306c; transform: scale(1.1); border-color: transparent;}
+
+        /* SOL ÜST 2: Meme Butonu */
+        #memeButonu {
+            position: fixed; top: 70px; left: 20px;
+            background: rgba(22, 27, 34, 0.7); backdrop-filter: blur(5px);
+            color: white; border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 10px 18px; border-radius: 30px;
+            cursor: pointer; z-index: 1000; font-weight: bold; font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        #memeButonu:hover { background: #2980b9; transform: scale(1.1); border-color: transparent;}
+
+        /* ========================================= */
 
         /* Oyun Ekranı */
         #oyunEkrani {
@@ -141,95 +146,71 @@
             position: relative; overflow: hidden; display: none; margin-top: 20px;
             background: rgba(0,0,0,0.5); box-shadow: 0 0 20px rgba(225, 48, 108, 0.5);
         }
-        .hedef {
-            position: absolute; font-size: 2.5rem;
-            cursor: crosshair; user-select: none;
-        }
+        .hedef { position: absolute; font-size: 2.5rem; cursor: crosshair; user-select: none; }
 
         .game-over-container {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            border-radius: 12px; z-index: 10;
+            background: rgba(0, 0, 0, 0.85); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 10;
         }
         .game-over-title {
-            font-size: 2.8rem; color: #ff0000; font-weight: 900;
-            letter-spacing: 3px; text-transform: uppercase;
-            text-shadow: 2px 2px 0px #fff, -2px -2px 0px #fff, 0 0 25px #ff0000;
-            margin-bottom: 10px; text-align: center;
-            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        .game-over-score {
-            font-size: 1.5rem; color: #ffffff; font-weight: bold;
-            background: rgba(225, 48, 108, 0.8); padding: 5px 15px; border-radius: 10px;
-            animation: fadeIn 1s ease;
+            font-size: 2.8rem; color: #ff0000; font-weight: 900; letter-spacing: 3px; text-shadow: 2px 2px 0px #fff, -2px -2px 0px #fff, 0 0 25px #ff0000; margin-bottom: 10px; animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        /* Meme Ekranı Tasarımı */
+        /* Meme Ekranı */
         #memeEkrani {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(13, 17, 23, 0.95); z-index: 4000;
             display: none; flex-direction: column; align-items: center; justify-content: center;
         }
         #memeGorseli {
-            max-width: 90%; max-height: 60vh;
-            border-radius: 15px; border: 4px solid #e1306c;
-            box-shadow: 0 0 30px rgba(225, 48, 108, 0.6);
-            animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            max-width: 90%; max-height: 60vh; border-radius: 15px; border: 4px solid #e1306c; box-shadow: 0 0 30px rgba(225, 48, 108, 0.6); animation: popIn 0.4s ease;
         }
 
-        .container {
-            max-width: 400px; width: 100%;
-            text-align: center; margin-top: 40px; z-index: 1;
-        }
+        /* Ana İçerik */
+        .container { max-width: 400px; width: 100%; text-align: center; margin-top: 50px; z-index: 1; }
 
         .header-img {
             width: 140px; height: 140px; border-radius: 50%; object-fit: cover;
             border: 4px solid #e1306c; margin-bottom: 15px;
             box-shadow: 0 0 25px rgba(225, 48, 108, 0.7);
             animation: popIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) backwards;
+            transition: all 0.8s ease;
         }
 
         h1 {
             font-size: 2rem; margin-bottom: 30px; color: #ffffff;
-            letter-spacing: 3px; font-weight: 800;
-            text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
-            animation: fadeIn 1s ease 0.3s backwards;
+            letter-spacing: 3px; font-weight: 800; text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
+            transition: all 0.8s ease;
         }
 
         .link-btn {
             display: flex; align-items: center; justify-content: center;
             background: rgba(22, 27, 34, 0.6); backdrop-filter: blur(8px);
-            color: #ffffff; text-decoration: none;
-            padding: 16px 20px; margin-bottom: 16px; border-radius: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            font-weight: 700; font-size: 1.1rem;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-            animation: fadeInUp 0.5s ease backwards;
+            color: #ffffff; text-decoration: none; padding: 16px 20px; margin-bottom: 16px; border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2); transition: all 0.4s ease;
+            font-weight: 700; font-size: 1.1rem; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
         }
         .link-btn:hover {
             transform: scale(1.05) translateY(-5px);
-            background: linear-gradient(45deg, #e63946, #dc2743);
-            border-color: transparent;
-            box-shadow: 0 10px 25px rgba(220, 39, 67, 0.6);
-        }
-
-        .meme-btn {
-            background: linear-gradient(45deg, #1f618d, #2980b9);
-            border: none;
-            margin-top: 15px;
-        }
-        .meme-btn:hover {
-            background: linear-gradient(45deg, #2980b9, #1f618d);
-            box-shadow: 0 10px 25px rgba(41, 128, 185, 0.6);
+            background: linear-gradient(45deg, #e63946, #dc2743); border-color: transparent; box-shadow: 0 10px 25px rgba(220, 39, 67, 0.6);
         }
 
         .ig-icon { margin-right: 10px; font-size: 1.3rem; }
 
+        /* VENOM (SEMBİYOT) MODU CSS'İ */
+        body.venom-mode::before { background: rgba(0, 0, 0, 0.92); }
+        body.venom-mode .spider-web { color: rgba(0, 0, 0, 0.95); text-shadow: 0 0 5px rgba(255, 255, 255, 0.2); }
+        body.venom-mode .header-img { border-color: #333; box-shadow: 0 0 35px rgba(0,0,0,0.9); filter: grayscale(100%) contrast(120%); }
+        body.venom-mode h1 { color: #888; text-shadow: 0 0 15px rgba(255,255,255,0.2); letter-spacing: 5px; }
+        body.venom-mode .link-btn { background: rgba(10, 10, 10, 0.8); border: 1px solid rgba(255, 255, 255, 0.1); }
+        body.venom-mode .link-btn:hover { background: linear-gradient(45deg, #000000, #222222); box-shadow: 0 10px 25px rgba(0, 0, 0, 0.9); border-color: #444; color: #ccc; }
+        
+        body.venom-mode #sesButonu:hover, 
+        body.venom-mode #oyunButonu:hover, 
+        body.venom-mode #memeButonu:hover { background: #222; border-color: transparent;}
+
         @keyframes popIn { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
@@ -244,23 +225,30 @@
         <button class="giris-btn" onclick="siteyeGir()">🕷️ Müzikle Giriş Yap 🎵</button>
     </div>
 
-    <button id="oyunButonu" onclick="oyunuAc()">🎮 Oyunu Oyna</button>
-    <button id="sesButonu" onclick="sarkiOynatDurdur()">🔊 Sesi Kapat</button>
+    <!-- ÜST KÖŞE BUTONLARI -->
+    <button id="oyunButonu" onclick="oyunuAc()">🎮 Oyun</button>
+    <button id="memeButonu" onclick="rastgeleMemeGoster()">😂 Meme</button>
+    
+    <button id="sesButonu" onclick="sarkiOynatDurdur()">🔊 Ses</button>
+    <button id="venomButonu" onclick="venomModunuAcKapat()">🕷️ Sembiyot</button>
 
+    <!-- Oyun Ekranı -->
     <div id="oyunEkrani">
         <button id="oyunKapatBtn" onclick="oyunuKapat()">❌ Kapat</button>
-        <h2 style="color:#e1306c;">🕸️ Ağ Fırlatma Eğitimi 🕸️</h2>
+        <h2 style="color:#e1306c;" id="oyunBaslik">🕸️ Ağ Fırlatma Eğitimi 🕸️</h2>
         <p style="font-size:1.2rem;">Puan: <span id="puan">0</span> | Kalan Can: <span id="can" style="color:red; font-weight:bold;">3</span></p>
         <button id="oyunBaslatBtn" class="giris-btn" onclick="oyunuBaslat()" style="margin-top:20px; font-size:1.2rem; padding:10px 25px;">BAŞLA!</button>
         <div id="oyunAlani"></div>
     </div>
 
+    <!-- Meme Ekranı -->
     <div id="memeEkrani">
         <button id="memeKapatBtn" onclick="memeKapat()">❌ Kapat</button>
         <img id="memeGorseli" src="" alt="Spidey Meme">
         <button class="giris-btn" onclick="rastgeleMemeGoster()" style="margin-top:30px; font-size:1.1rem; padding:12px 25px;">🔄 Başka Göster</button>
     </div>
 
+    <!-- Ana İçerik -->
     <div id="anaIcerik" class="container">
         <img src="foto.jpg" alt="Spidey Gang Foto" class="header-img">
         <h1>SPİDEY GANG</h1>
@@ -272,16 +260,15 @@
         <a href="https://www.instagram.com/burakerataa" target="_blank" class="link-btn"><span class="ig-icon">📸</span> @burakerataa</a>
         <a href="https://www.instagram.com/abdullahdnmzz" target="_blank" class="link-btn"><span class="ig-icon">📸</span> @abdullahdnmzz</a>
         <a href="https://www.instagram.com/bahagkmn0" target="_blank" class="link-btn"><span class="ig-icon">📸</span> @bahagkmn0</a>
-        
-        <button class="link-btn meme-btn" onclick="rastgeleMemeGoster()" style="width: 100%; cursor: pointer;">
-            <span class="ig-icon">😂</span> Rastgele Spidey Meme
-        </button>
     </div>
 
     <script>
         var muzik = document.getElementById("arkaMuzik");
-        var buton = document.getElementById("sesButonu");
+        var sesBtn = document.getElementById("sesButonu");
         var oyunBtn = document.getElementById("oyunButonu");
+        var memeBtn = document.getElementById("memeButonu");
+        var venomBtn = document.getElementById("venomButonu");
+        
         var girisEkrani = document.getElementById("girisEkrani");
         var anaIcerik = document.getElementById("anaIcerik");
         var caliyor = false;
@@ -293,8 +280,10 @@
             setTimeout(function() {
                 girisEkrani.style.display = "none";
                 anaIcerik.style.display = "block";
-                buton.style.display = "block";
+                sesBtn.style.display = "block";
                 oyunBtn.style.display = "block"; 
+                memeBtn.style.display = "block"; 
+                venomBtn.style.display = "block"; 
                 agPartikulleriniOlustur();
             }, 800); 
         }
@@ -302,12 +291,26 @@
         function sarkiOynatDurdur() {
             if (caliyor) {
                 muzik.pause();
-                buton.innerHTML = "🎵 Sesi Aç";
+                sesBtn.innerHTML = "🎵 Ses";
             } else {
                 muzik.play();
-                buton.innerHTML = "🔊 Sesi Kapat";
+                sesBtn.innerHTML = "🔊 Ses";
             }
             caliyor = !caliyor;
+        }
+
+        var venomAktif = false;
+        function venomModunuAcKapat() {
+            var body = document.body;
+            venomAktif = !venomAktif;
+            
+            if (venomAktif) {
+                body.classList.add('venom-mode');
+                venomBtn.innerHTML = "🕸️ Geri Dön";
+            } else {
+                body.classList.remove('venom-mode');
+                venomBtn.innerHTML = "🕷️ Sembiyot";
+            }
         }
 
         function agPartikulleriniOlustur() {
@@ -324,24 +327,16 @@
             }
         }
 
-        // --- GÜNCELLENEN MEME SİSTEMİ KODLARI ---
         const memeListesi = ['meme1.jpg', 'meme2.jpg', 'meme3.jpg', 'meme4.jpg', 'meme5.jpg'];
-        var sonMemeIndex = -1; // Açık olan meme'i aklında tutacak hafıza değişkeni
+        var sonMemeIndex = -1;
 
         function rastgeleMemeGoster() {
-            // Rastgele bir sayı seç
             var rastgeleIndex = Math.floor(Math.random() * memeListesi.length);
-            
-            // Eğer seçilen sayı bir öncekiyle AYNIYSA, farklı bir sayı bulana kadar zarları tekrar at (While döngüsü)
             while (rastgeleIndex === sonMemeIndex) {
                 rastgeleIndex = Math.floor(Math.random() * memeListesi.length);
             }
-            
-            // Farklı sayıyı bulduk, bunu "son açılan" olarak hafızaya kaydet
             sonMemeIndex = rastgeleIndex;
-            var secilenMeme = memeListesi[rastgeleIndex];
-            
-            document.getElementById('memeGorseli').src = secilenMeme;
+            document.getElementById('memeGorseli').src = memeListesi[rastgeleIndex];
             document.getElementById('memeEkrani').style.display = 'flex';
         }
 
@@ -349,16 +344,13 @@
             document.getElementById('memeEkrani').style.display = 'none';
         }
 
-        // --- OYUN KODLARI ---
         var oyunDongusu;
         var puan = 0;
         var can = 3;
         var hiz = 3; 
 
-        function oyunuAc() {
-            document.getElementById('oyunEkrani').style.display = 'flex';
-        }
-
+        function oyunuAc() { document.getElementById('oyunEkrani').style.display = 'flex'; }
+        
         function oyunuKapat() {
             document.getElementById('oyunEkrani').style.display = 'none';
             clearInterval(oyunDongusu);
@@ -368,61 +360,40 @@
         }
 
         function oyunuBaslat() {
-            puan = 0;
-            can = 3;
-            hiz = 3.5; 
+            puan = 0; can = 3; hiz = 3.5; 
             document.getElementById('puan').innerText = puan;
             document.getElementById('can').innerText = can;
-            
             document.getElementById('oyunBaslatBtn').style.display = 'none';
             const alan = document.getElementById('oyunAlani');
-            alan.style.display = 'block';
-            alan.innerHTML = '';
+            alan.style.display = 'block'; alan.innerHTML = '';
 
             oyunDongusu = setInterval(function() {
                 if(can <= 0) {
                     clearInterval(oyunDongusu);
-                    alan.innerHTML = `
-                        <div class="game-over-container">
-                            <div class="game-over-title">OYUN BİTTİ!</div>
-                            <div class="game-over-score">Puan: ${puan}</div>
-                        </div>`;
+                    alan.innerHTML = `<div class="game-over-container"><div class="game-over-title">OYUN BİTTİ!</div><div class="game-over-score">Puan: ${puan}</div></div>`;
                     setTimeout(() => { document.getElementById('oyunBaslatBtn').style.display = 'block'; }, 2000);
                     return;
                 }
 
                 let hedef = document.createElement('div');
-                hedef.innerText = '🎃';
-                hedef.className = 'hedef';
-                hedef.style.left = (Math.random() * 80) + '%';
-                hedef.style.top = '-50px';
+                hedef.innerText = '🎃'; hedef.className = 'hedef';
+                hedef.style.left = (Math.random() * 80) + '%'; hedef.style.top = '-50px';
                 alan.appendChild(hedef);
 
                 let dusus = -50;
                 let dususDongusu = setInterval(function() {
-                    dusus += hiz;
-                    hedef.style.top = dusus + 'px';
-
+                    dusus += hiz; hedef.style.top = dusus + 'px';
                     if(dusus > 430) {
                         clearInterval(dususDongusu);
-                        if(hedef.parentNode) {
-                            hedef.remove();
-                            can--;
-                            document.getElementById('can').innerText = can;
-                        }
+                        if(hedef.parentNode) { hedef.remove(); can--; document.getElementById('can').innerText = can; }
                     }
                 }, 20); 
 
                 hedef.onmousedown = hedef.ontouchstart = function(e) {
-                    e.preventDefault(); 
-                    clearInterval(dususDongusu);
-                    hedef.innerText = '🕸️'; 
-                    hedef.style.opacity = '0.5';
+                    e.preventDefault(); clearInterval(dususDongusu);
+                    hedef.innerText = '🕸️'; hedef.style.opacity = '0.5';
                     setTimeout(() => { if(hedef.parentNode) hedef.remove(); }, 200);
-                    
-                    puan += 10;
-                    document.getElementById('puan').innerText = puan;
-                    
+                    puan += 10; document.getElementById('puan').innerText = puan;
                     if(puan % 40 === 0) hiz += 0.8;
                 };
             }, 600); 
