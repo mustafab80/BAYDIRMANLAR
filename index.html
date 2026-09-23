@@ -215,7 +215,6 @@
             box-shadow: 0 10px 25px rgba(220, 39, 67, 0.6);
         }
 
-        /* Meme butonuna özel farklı renk tasarımı */
         .meme-btn {
             background: linear-gradient(45deg, #1f618d, #2980b9);
             border: none;
@@ -248,7 +247,6 @@
     <button id="oyunButonu" onclick="oyunuAc()">🎮 Oyunu Oyna</button>
     <button id="sesButonu" onclick="sarkiOynatDurdur()">🔊 Sesi Kapat</button>
 
-    <!-- Oyun Ekranı -->
     <div id="oyunEkrani">
         <button id="oyunKapatBtn" onclick="oyunuKapat()">❌ Kapat</button>
         <h2 style="color:#e1306c;">🕸️ Ağ Fırlatma Eğitimi 🕸️</h2>
@@ -257,7 +255,6 @@
         <div id="oyunAlani"></div>
     </div>
 
-    <!-- YENİ: Meme Ekranı -->
     <div id="memeEkrani">
         <button id="memeKapatBtn" onclick="memeKapat()">❌ Kapat</button>
         <img id="memeGorseli" src="" alt="Spidey Meme">
@@ -276,7 +273,6 @@
         <a href="https://www.instagram.com/abdullahdnmzz" target="_blank" class="link-btn"><span class="ig-icon">📸</span> @abdullahdnmzz</a>
         <a href="https://www.instagram.com/bahagkmn0" target="_blank" class="link-btn"><span class="ig-icon">📸</span> @bahagkmn0</a>
         
-        <!-- YENİ: Rastgele Meme Butonu -->
         <button class="link-btn meme-btn" onclick="rastgeleMemeGoster()" style="width: 100%; cursor: pointer;">
             <span class="ig-icon">😂</span> Rastgele Spidey Meme
         </button>
@@ -328,15 +324,23 @@
             }
         }
 
-        // --- MEME SİSTEMİ KODLARI ---
-        // Eğer daha fazla meme eklersen buraya meme6.jpg, meme7.jpg diye ekleyebilirsin
+        // --- GÜNCELLENEN MEME SİSTEMİ KODLARI ---
         const memeListesi = ['meme1.jpg', 'meme2.jpg', 'meme3.jpg', 'meme4.jpg', 'meme5.jpg'];
+        var sonMemeIndex = -1; // Açık olan meme'i aklında tutacak hafıza değişkeni
 
         function rastgeleMemeGoster() {
+            // Rastgele bir sayı seç
             var rastgeleIndex = Math.floor(Math.random() * memeListesi.length);
+            
+            // Eğer seçilen sayı bir öncekiyle AYNIYSA, farklı bir sayı bulana kadar zarları tekrar at (While döngüsü)
+            while (rastgeleIndex === sonMemeIndex) {
+                rastgeleIndex = Math.floor(Math.random() * memeListesi.length);
+            }
+            
+            // Farklı sayıyı bulduk, bunu "son açılan" olarak hafızaya kaydet
+            sonMemeIndex = rastgeleIndex;
             var secilenMeme = memeListesi[rastgeleIndex];
             
-            // Görseli değiştir ve ekranı göster
             document.getElementById('memeGorseli').src = secilenMeme;
             document.getElementById('memeEkrani').style.display = 'flex';
         }
