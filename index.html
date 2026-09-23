@@ -1,448 +1,405 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SPİDEY GANG</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: #ffffff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin: 0;
-            padding: 20px;
-            min-height: 100vh;
-            overflow-x: hidden;
-            
-            background-image: url('AMUDA.jpeg');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            background-color: #0d1117;
-            transition: all 0.8s ease; 
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SPİDEY GANG</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0a0d1f; --red:#e4213b; --blue:#1d4ed8; --paper:#fdf3d8; --glow:#ffffff;
+  --shadow-a:var(--red); --shadow-b:var(--blue);
+  --head:'Bangers',Impact,sans-serif; --body:'Nunito','Segoe UI',sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; min-height:100vh; color:#fff; font-family:var(--body);
+  background:#0a0d1f url('AMUDA.jpeg') center/cover fixed;
+  padding:58px 18px calc(110px + env(safe-area-inset-bottom));
+  display:flex; flex-direction:column; align-items:center; overflow-x:hidden;
+}
+/* koyu perde + yarım ton (halftone) noktalar */
+body::before{content:'';position:fixed;inset:0;z-index:-2;background:linear-gradient(180deg,rgba(10,13,31,.72),rgba(10,13,31,.9));transition:background .8s}
+body::after{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background-image:radial-gradient(rgba(228,33,59,.35) 1.4px,transparent 1.6px);
+  background-size:14px 14px;
+  -webkit-mask-image:linear-gradient(180deg,#000,transparent 55%);mask-image:linear-gradient(180deg,#000,transparent 55%);
+  transition:opacity .8s}
+#particles{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.web{position:absolute;top:-40px;opacity:.35;animation:fall linear infinite}
+@keyframes fall{0%{transform:translateY(0) rotate(0);opacity:0}10%{opacity:.35}90%{opacity:.35}100%{transform:translateY(112vh) rotate(300deg);opacity:0}}
 
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.65); 
-            z-index: -1;
-            transition: background 0.8s ease;
-        }
+/* köşe ağı */
+.corner{position:fixed;top:0;left:0;width:150px;height:150px;z-index:1;pointer-events:none;opacity:.5}
+.corner path{stroke:#fff;stroke-width:1.2;fill:none}
 
-        #particles-container {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none; z-index: 0; 
-        }
+/* GİRİŞ */
+#giris{position:fixed;inset:0;z-index:2000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:26px;
+  background:radial-gradient(circle at 50% 40%,rgba(228,33,59,.35),transparent 55%),rgba(10,13,31,.94);transition:opacity .8s}
+#giris h2{font:400 clamp(2.6rem,12vw,5rem)/1 var(--head);letter-spacing:3px;margin:0;text-align:center;
+  -webkit-text-stroke:2px var(--ink);paint-order:stroke fill;text-shadow:5px 5px 0 var(--red)}
+.big-btn{font:400 1.6rem var(--head);letter-spacing:2px;color:#fff;background:var(--red);border:3px solid #fff;
+  padding:14px 34px;border-radius:12px;cursor:pointer;box-shadow:6px 6px 0 var(--blue);transition:transform .15s,box-shadow .15s}
+.big-btn:hover{transform:translate(-2px,-2px);box-shadow:9px 9px 0 var(--blue)}
+.big-btn:active{transform:translate(4px,4px);box-shadow:2px 2px 0 var(--blue)}
 
-        .spider-web {
-            position: absolute; top: -50px;
-            color: rgba(255, 255, 255, 0.3);
-            animation: fall linear infinite;
-            transition: color 0.8s ease;
-        }
+/* ANA İÇERİK */
+#ana{display:none;width:100%;max-width:440px;text-align:center;position:relative;z-index:2}
+.avatar{position:relative;width:150px;height:150px;margin:88px auto 18px;cursor:pointer}
+.avatar img{width:100%;height:100%;object-fit:cover;border-radius:50%;border:4px solid #fff;position:relative;z-index:2;transition:filter .8s}
+.avatar::before{content:'';position:absolute;inset:-14px;border-radius:50%;z-index:1;
+  background:repeating-conic-gradient(var(--red) 0 15deg,var(--blue) 15deg 30deg);transition:background .8s}
+.avatar::after{content:'';position:absolute;inset:-14px;border-radius:50%;z-index:3;pointer-events:none;
+  background:radial-gradient(circle,transparent 62%,var(--ink) 63% 66%,transparent 67%)}
+h1{font:400 clamp(2.6rem,13vw,3.8rem)/1 var(--head);letter-spacing:3px;margin:0 0 6px;color:#fff;
+  -webkit-text-stroke:2px var(--ink);paint-order:stroke fill;text-shadow:4px 4px 0 var(--red)}
+.sub{margin:0 0 28px;font-weight:700;opacity:.8}
 
-        @keyframes fall {
-            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
-        }
+.links{display:flex;flex-direction:column;gap:16px}
+.link{display:flex;align-items:center;gap:14px;text-decoration:none;color:var(--ink);background:var(--paper);
+  border:3px solid var(--ink);border-radius:14px;padding:12px 16px;font-weight:900;font-size:1.1rem;
+  box-shadow:6px 6px 0 var(--shadow-a);transform:rotate(-.8deg);transition:transform .15s,box-shadow .15s,background .8s,color .8s;
+  animation:drop .55s cubic-bezier(.2,1.4,.4,1) backwards;animation-delay:calc(var(--i)*70ms)}
+.link:nth-child(even){transform:rotate(.8deg);box-shadow:6px 6px 0 var(--shadow-b)}
+.link:hover,.link:focus-visible{transform:translate(-3px,-3px) rotate(0);box-shadow:9px 9px 0 var(--ink),9px 9px 0 3px #fff;outline:none}
+.link:active{transform:translate(3px,3px);box-shadow:2px 2px 0 var(--ink)}
+.badge{flex:none;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;
+  font:400 1.4rem var(--head);color:#fff;background:var(--red);border:3px solid var(--ink)}
+.link:nth-child(even) .badge{background:var(--blue)}
+.link span.name{flex:1;text-align:left;overflow:hidden;text-overflow:ellipsis}
+.name small{display:block;font-weight:700;font-size:.78rem;opacity:.65}
+.ig{flex:none;width:22px;height:22px;opacity:.75}
+@keyframes drop{from{opacity:0;transform:translateY(-30px) scale(.9)}}
 
-        #girisEkrani {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-image: url('AMUDA.jpeg'); background-size: cover; background-position: center;
-            display: flex; align-items: center; justify-content: center;
-            z-index: 2000; transition: opacity 0.8s ease;
-        }
+/* ASILI MENÜ: örümcek ipinden sarkan butonlar */
+#asma{display:none;position:fixed;top:30px;left:8px;right:8px;height:0;z-index:1000}
+#ipler{display:flex;justify-content:flex-end;align-items:flex-start;gap:4px}
+.ipli{position:relative;display:flex;flex-direction:column;align-items:center;width:52px;padding:var(--u) 0 0;
+  background:none;border:0;font:inherit;color:inherit;cursor:pointer;transform-origin:50% 0;
+  translate:0 -160%;rotate:-4deg;pointer-events:none;
+  transition:translate .55s cubic-bezier(.3,1.6,.5,1);transition-delay:calc((5 - var(--i)) * 55ms)}
+.ipli::before{content:'';position:absolute;top:0;left:50%;width:2px;height:var(--u);margin-left:-1px;background:rgba(255,255,255,.85)}
+.ic{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;font-size:1.5rem;
+  background:var(--paper);color:var(--ink);border:3px solid var(--ink);box-shadow:3px 3px 0 var(--red);transition:background .2s,transform .15s}
+.et{margin-top:6px;max-width:58px;padding:1px 6px;background:#fff;color:var(--ink);border:2px solid var(--ink);border-radius:10px;
+  font:900 .66rem/1.15 var(--body);text-align:center}
+.ipli:hover .ic,.ipli:focus-visible .ic{background:var(--red);transform:scale(1.12)}
+.ipli:focus-visible{outline:2px dashed #fff;outline-offset:4px}
+.ipli:active .ic{transform:scale(.92)}
+.ipli.orumcek{translate:0 0;pointer-events:auto;rotate:0deg}
+#asma.open .ipli{translate:0 0;pointer-events:auto;animation:sway 3.2s ease-in-out infinite;animation-delay:calc(var(--i) * -.7s)}
+#asma.open .ipli.orumcek{animation:none}
+@keyframes sway{0%,100%{rotate:-4deg}50%{rotate:4deg}}
+.cek{position:absolute;top:26px;right:66px;padding:4px 10px;background:#fff;color:var(--ink);border:3px solid var(--ink);border-radius:14px;
+  font:400 1.1rem var(--head);letter-spacing:1px;white-space:nowrap;pointer-events:none;animation:cekcek 1.4s ease-in-out infinite}
+.cek::after{content:'';position:absolute;right:-11px;top:9px;border:7px solid transparent;border-left:9px solid var(--ink);border-right:0}
+#asma.open .cek{display:none}
+@keyframes cekcek{50%{transform:translateX(-5px) rotate(-2deg)}}
+#orumcekBtn.wiggle .ic{animation:pop .4s cubic-bezier(.2,1.4,.4,1)}
 
-        #girisEkrani::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.85); z-index: -1;
-        }
+/* KAPLAMALAR */
+.overlay{position:fixed;inset:0;z-index:3000;display:none;flex-direction:column;align-items:center;justify-content:center;gap:16px;
+  background:rgba(10,13,31,.95);padding:20px}
+.overlay .close{position:absolute;top:calc(16px + env(safe-area-inset-top));right:16px;font:900 .9rem var(--body);color:#fff;background:transparent;
+  border:2px solid #fff;border-radius:20px;padding:8px 16px;cursor:pointer}
+.overlay .close:hover{background:var(--red);border-color:var(--red)}
+.pic{max-width:92%;max-height:62vh;border-radius:14px;border:4px solid #fff;box-shadow:8px 8px 0 var(--red);animation:pop .35s cubic-bezier(.2,1.4,.4,1)}
+#cicekPic{box-shadow:8px 8px 0 #27ae60}
+@keyframes pop{from{transform:scale(.6) rotate(-4deg);opacity:0}}
+.hud{font-weight:900;font-size:1.15rem}
+#alan{display:none;position:relative;overflow:hidden;width:92%;max-width:400px;height:440px;border:3px solid #fff;border-radius:16px;
+  background:rgba(0,0,0,.45);box-shadow:8px 8px 0 var(--red);touch-action:manipulation}
+.hedef{position:absolute;font-size:2.6rem;cursor:crosshair;user-select:none;-webkit-user-select:none}
+.bitti{position:absolute;inset:0;z-index:5;background:rgba(0,0,0,.85);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px}
+.bitti h3{margin:0;font:400 3.2rem var(--head);letter-spacing:3px;color:#fff;-webkit-text-stroke:2px var(--ink);paint-order:stroke fill;text-shadow:4px 4px 0 var(--red);animation:pop .5s}
 
-        .giris-btn {
-            background: linear-gradient(45deg, #e63946, #dc2743); color: #ffffff;
-            border: none; padding: 18px 35px; font-size: 1.5rem; font-weight: 800;
-            border-radius: 50px; cursor: pointer; box-shadow: 0 10px 30px rgba(220, 39, 67, 0.6);
-            transition: all 0.3s ease; animation: pulse 1.5s infinite; z-index: 1;
-        }
-        .giris-btn:hover { transform: scale(1.1); }
+.burst{position:fixed;z-index:5000;pointer-events:none;font:400 2.4rem var(--head);letter-spacing:2px;color:#ffe14d;
+  -webkit-text-stroke:2px var(--ink);paint-order:stroke fill;text-shadow:3px 3px 0 var(--red);
+  transform:translate(-50%,-50%) rotate(var(--r));animation:burst .7s ease-out forwards}
+@keyframes burst{0%{transform:translate(-50%,-50%) rotate(var(--r)) scale(.2);opacity:1}30%{transform:translate(-50%,-50%) rotate(var(--r)) scale(1.3)}100%{transform:translate(-50%,-90%) rotate(var(--r)) scale(1);opacity:0}}
 
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(220, 39, 67, 0.7); }
-            70% { box-shadow: 0 0 0 20px rgba(220, 39, 67, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(220, 39, 67, 0); }
-        }
+/* KAYAN HABER BANDI */
+.ticker{display:none;position:fixed;top:0;left:0;right:0;height:30px;z-index:1200;background:var(--red);border-bottom:3px solid #fff;overflow:hidden;
+  font:900 .8rem/25px var(--body);color:#fff;transition:background .8s}
+.ticker b{position:absolute;left:0;top:0;z-index:2;height:100%;padding:0 10px;background:var(--ink);font:400 1rem/27px var(--head);letter-spacing:1px}
+.ticker-in{display:inline-block;white-space:nowrap;animation:kay 50s linear infinite}
+.ticker-in span{margin-right:70px}
+@keyframes kay{to{transform:translateX(-50%)}}
 
-        /* Başlangıçta gizli olan elementler */
-        #anaIcerik, #sesButonu, #venomButonu, #oyunButonu, #memeButonu, #cicekButonu { display: none; }
+/* YÜKLEME */
+#yukle{display:none;flex-direction:column;align-items:center;gap:14px}
+.bar{width:min(80vw,300px);height:20px;border:3px solid #fff;border-radius:12px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:repeating-linear-gradient(45deg,var(--red) 0 10px,#fff 10px 20px);transition:width 2.3s linear}
+#yukMetin{margin:0;font-weight:900;min-height:1.4em}
 
-        /* --- ÜST KÖŞE BUTONLARI (KONTROL PANELİ) --- */
-        
-        #sesButonu {
-            position: fixed; top: 20px; right: 20px;
-            background: rgba(22, 27, 34, 0.7); backdrop-filter: blur(5px);
-            color: white; border: 1px solid rgba(255, 255, 255, 0.3);
-            padding: 10px 18px; border-radius: 30px;
-            cursor: pointer; z-index: 1000; font-weight: bold; font-size: 0.9rem;
-            transition: all 0.3s ease;
-        }
-        #sesButonu:hover { background: #e1306c; transform: scale(1.1); border-color: transparent;}
+/* AVATAR KONUŞUYOR */
+.konus{position:absolute;left:50%;bottom:calc(100% + 30px);translate:-50% 0;width:240px;z-index:4;background:#fff;color:var(--ink);
+  border:3px solid var(--ink);border-radius:18px;padding:10px 14px;font:900 .95rem/1.3 var(--body);box-shadow:5px 5px 0 var(--blue)}
+.konus::after{content:'';position:absolute;left:50%;bottom:-13px;margin-left:-9px;border:9px solid transparent;border-top:13px solid var(--ink);border-bottom:0}
+.zipla{animation:zipla .5s}
+@keyframes zipla{30%{transform:translateY(-32px) rotate(-8deg)}60%{transform:translateY(0) rotate(6deg)}}
+.don{animation:don .9s ease-in-out}
+@keyframes don{to{transform:rotate(720deg) scale(1.1)}}
+.yag{position:fixed;top:-50px;z-index:5000;pointer-events:none;font-size:2rem;animation:yagmur linear forwards}
+@keyframes yagmur{to{transform:translateY(115vh) rotate(360deg)}}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));translate:-50% 0;z-index:6000;background:#fff;color:var(--ink);
+  border:3px solid var(--ink);border-radius:14px;padding:10px 18px;font:900 1rem var(--body);box-shadow:5px 5px 0 var(--red);pointer-events:none;
+  animation:toast 2.2s forwards;white-space:nowrap}
+@keyframes toast{0%{opacity:0;translate:-50% 20px}10%,80%{opacity:1;translate:-50% 0}100%{opacity:0;translate:-50% 10px}}
+h1{cursor:pointer;user-select:none;-webkit-user-select:none}
+.alt{margin-top:34px;font-weight:700;font-size:.85rem;opacity:.75;line-height:1.7}
 
-        #venomButonu {
-            position: fixed; top: 70px; right: 20px;
-            background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(5px);
-            color: white; border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 10px 18px; border-radius: 30px;
-            cursor: pointer; z-index: 1000; font-weight: bold; font-size: 0.9rem;
-            transition: all 0.4s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.8);
-        }
-        #venomButonu:hover { background: #000; transform: scale(1.1); box-shadow: 0 0 20px rgba(255,255,255,0.4); border-color: transparent;}
+/* SİMBİYOT MODU */
+body.venom .ticker{background:#222}
+body.venom{--red:#f2f2f2;--blue:#6b6b6b;--shadow-a:#f2f2f2;--shadow-b:#555;--paper:#141414;}
+body.venom::before{background:rgba(0,0,0,.95)}
+body.venom::after{opacity:.25}
+body.venom .link{color:#f2f2f2;border-color:#f2f2f2}
+body.venom .badge{color:#000;background:#f2f2f2;border-color:#f2f2f2}
+body.venom .link:nth-child(even) .badge{background:#777}
+body.venom .avatar img{filter:grayscale(1) contrast(1.2)}
+body.venom h1,body.venom #giris h2{text-shadow:4px 4px 0 #444}
+body.venom .web{filter:invert(1);opacity:.15}
+body.venom .ic{background:#141414;color:#f2f2f2;border-color:#f2f2f2;box-shadow:3px 3px 0 #555}
+body.venom .ipli:hover .ic{background:#333}
+body.venom .ipli::before{background:rgba(255,255,255,.5)}
 
-        #oyunButonu {
-            position: fixed; top: 20px; left: 20px;
-            background: rgba(22, 27, 34, 0.7); backdrop-filter: blur(5px);
-            color: white; border: 1px solid rgba(255, 255, 255, 0.3);
-            padding: 10px 18px; border-radius: 30px;
-            cursor: pointer; z-index: 1000; font-weight: bold; font-size: 0.9rem;
-            transition: all 0.3s ease;
-        }
-        #oyunButonu:hover { background: #e1306c; transform: scale(1.1); border-color: transparent;}
-
-        #memeButonu {
-            position: fixed; top: 70px; left: 20px;
-            background: rgba(22, 27, 34, 0.7); backdrop-filter: blur(5px);
-            color: white; border: 1px solid rgba(255, 255, 255, 0.3);
-            padding: 10px 18px; border-radius: 30px;
-            cursor: pointer; z-index: 1000; font-weight: bold; font-size: 0.9rem;
-            transition: all 0.3s ease;
-        }
-        #memeButonu:hover { background: #2980b9; transform: scale(1.1); border-color: transparent;}
-
-        /* YENİ: Çiçek Butonu */
-        #cicekButonu {
-            position: fixed; top: 120px; left: 20px;
-            background: rgba(22, 27, 34, 0.7); backdrop-filter: blur(5px);
-            color: white; border: 1px solid rgba(255, 255, 255, 0.3);
-            padding: 10px 18px; border-radius: 30px;
-            cursor: pointer; z-index: 1000; font-weight: bold; font-size: 0.9rem;
-            transition: all 0.3s ease;
-        }
-        #cicekButonu:hover { background: #27ae60; transform: scale(1.1); border-color: transparent;}
-
-        /* Oyun Ekranı */
-        #oyunEkrani {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(13, 17, 23, 0.95); z-index: 3000;
-            display: none; flex-direction: column; align-items: center; justify-content: center;
-        }
-        #oyunKapatBtn, #memeKapatBtn, #cicekKapatBtn {
-            position: absolute; top: 20px; right: 20px;
-            background: transparent; border: 2px solid white; color: white;
-            padding: 8px 15px; border-radius: 20px; cursor: pointer; font-weight: bold;
-        }
-        #oyunAlani {
-            width: 90%; max-width: 400px; height: 450px;
-            border: 3px solid #e1306c; border-radius: 15px;
-            position: relative; overflow: hidden; display: none; margin-top: 20px;
-            background: rgba(0,0,0,0.5); box-shadow: 0 0 20px rgba(225, 48, 108, 0.5);
-        }
-        .hedef { position: absolute; font-size: 2.5rem; cursor: crosshair; user-select: none; }
-
-        .game-over-container {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.85); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 10;
-        }
-        .game-over-title {
-            font-size: 2.8rem; color: #ff0000; font-weight: 900; letter-spacing: 3px; text-shadow: 2px 2px 0px #fff, -2px -2px 0px #fff, 0 0 25px #ff0000; margin-bottom: 10px; animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        /* Meme Ekranı */
-        #memeEkrani {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(13, 17, 23, 0.95); z-index: 4000;
-            display: none; flex-direction: column; align-items: center; justify-content: center;
-        }
-        #memeGorseli {
-            max-width: 90%; max-height: 60vh; border-radius: 15px; border: 4px solid #e1306c; box-shadow: 0 0 30px rgba(225, 48, 108, 0.6); animation: popIn 0.4s ease;
-        }
-
-        /* YENİ: Çiçek Ekranı Tasarımı */
-        #cicekEkrani {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(13, 17, 23, 0.95); z-index: 4000;
-            display: none; flex-direction: column; align-items: center; justify-content: center;
-        }
-        #cicekGorseliId {
-            max-width: 90%; max-height: 60vh; border-radius: 15px; border: 4px solid #27ae60; box-shadow: 0 0 30px rgba(39, 174, 96, 0.6); animation: popIn 0.4s ease;
-        }
-
-        /* Ana İçerik */
-        .container { max-width: 400px; width: 100%; text-align: center; margin-top: 50px; z-index: 1; }
-
-        .header-img {
-            width: 140px; height: 140px; border-radius: 50%; object-fit: cover;
-            border: 4px solid #e1306c; margin-bottom: 15px;
-            box-shadow: 0 0 25px rgba(225, 48, 108, 0.7);
-            animation: popIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) backwards;
-            transition: all 0.8s ease;
-        }
-
-        h1 {
-            font-size: 2rem; margin-bottom: 30px; color: #ffffff;
-            letter-spacing: 3px; font-weight: 800; text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
-            transition: all 0.8s ease;
-        }
-
-        .link-btn {
-            display: flex; align-items: center; justify-content: center;
-            background: rgba(22, 27, 34, 0.6); backdrop-filter: blur(8px);
-            color: #ffffff; text-decoration: none; padding: 16px 20px; margin-bottom: 16px; border-radius: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.2); transition: all 0.4s ease;
-            font-weight: 700; font-size: 1.1rem; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-        }
-        
-        .link-btn:nth-of-type(1) { animation-delay: 0.2s; }
-        .link-btn:nth-of-type(2) { animation-delay: 0.3s; }
-        .link-btn:nth-of-type(3) { animation-delay: 0.4s; }
-        .link-btn:nth-of-type(4) { animation-delay: 0.5s; }
-        .link-btn:nth-of-type(5) { animation-delay: 0.6s; }
-        .link-btn:nth-of-type(6) { animation-delay: 0.7s; }
-        .link-btn:nth-of-type(7) { animation-delay: 0.8s; }
-
-        .link-btn:hover {
-            transform: scale(1.05) translateY(-5px);
-            background: linear-gradient(45deg, #e63946, #dc2743); border-color: transparent; box-shadow: 0 10px 25px rgba(220, 39, 67, 0.6);
-        }
-
-        .ig-icon { margin-right: 10px; font-size: 1.3rem; }
-
-        /* VENOM (SİMBİYOT) MODU CSS'İ */
-        body.venom-mode::before { background: rgba(0, 0, 0, 0.92); }
-        body.venom-mode .spider-web { color: rgba(0, 0, 0, 0.95); text-shadow: 0 0 5px rgba(255, 255, 255, 0.2); }
-        body.venom-mode .header-img { border-color: #333; box-shadow: 0 0 35px rgba(0,0,0,0.9); filter: grayscale(100%) contrast(120%); }
-        body.venom-mode h1 { color: #888; text-shadow: 0 0 15px rgba(255,255,255,0.2); letter-spacing: 5px; }
-        body.venom-mode .link-btn { background: rgba(10, 10, 10, 0.8); border: 1px solid rgba(255, 255, 255, 0.1); }
-        body.venom-mode .link-btn:hover { background: linear-gradient(45deg, #000000, #222222); box-shadow: 0 10px 25px rgba(0, 0, 0, 0.9); border-color: #444; color: #ccc; }
-        
-        body.venom-mode #sesButonu:hover, 
-        body.venom-mode #oyunButonu:hover, 
-        body.venom-mode #memeButonu:hover,
-        body.venom-mode #cicekButonu:hover { background: #222; border-color: transparent;}
-
-        @keyframes popIn { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-    </style>
+@media (max-width:380px){.ipli{width:46px}.ic{width:42px;height:42px;font-size:1.3rem}.et{font-size:.6rem;max-width:50px;padding:1px 4px}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
 </head>
 <body>
 
-    <audio id="arkaMuzik" loop>
-        <source src="sarki.mp3" type="audio/mpeg">
-    </audio>
+<audio id="muzik" loop><source src="sarki.mp3" type="audio/mpeg"></audio>
+<div id="particles"></div>
 
-    <div id="particles-container"></div>
+<svg class="corner" viewBox="0 0 150 150" aria-hidden="true">
+  <path d="M0 0L150 0M0 0L140 60M0 0L110 110M0 0L60 140M0 0L0 150"/>
+  <path d="M30 0Q26 26 0 30M60 0Q52 52 0 60M90 0Q78 78 0 90M120 0Q104 104 0 120"/>
+</svg>
 
-    <div id="girisEkrani">
-        <button class="giris-btn" onclick="siteyeGir()">🕷️ Müzikle Giriş Yap 🎵</button>
-    </div>
+<div id="giris">
+  <h2>SPİDEY<br>GANG</h2>
+  <button class="big-btn" id="girBtn" onclick="girisYap()">🕷️ Müzikle Gir</button>
+  <div id="yukle"><div class="bar"><i id="yukBar"></i></div><p id="yukMetin"></p></div>
+</div>
 
-    <!-- ÜST KÖŞE BUTONLARI -->
-    <button id="oyunButonu" onclick="oyunuAc()">🎮 Oyun</button>
-    <button id="memeButonu" onclick="rastgeleMemeGoster()">😂 Meme</button>
-    
-    <!-- YENİ: Bu Senin İçin Butonu -->
-    <button id="cicekButonu" onclick="cicekGoster()">🌸 Bu Senin İçin</button>
-    
-    <button id="sesButonu" onclick="sarkiOynatDurdur()">🔊 Ses</button>
-    <button id="venomButonu" onclick="venomModunuAcKapat()">🕷️ Simbiyot</button>
+<div class="ticker" id="ticker"><b>SON DAKİKA</b><div class="ticker-in" id="haber"></div></div>
 
-    <!-- Oyun Ekranı -->
-    <div id="oyunEkrani">
-        <button id="oyunKapatBtn" onclick="oyunuKapat()">❌ Kapat</button>
-        <h2 style="color:#e1306c;" id="oyunBaslik">🕸️ Ağ Fırlatma Eğitimi 🕸️</h2>
-        <p style="font-size:1.2rem;">Puan: <span id="puan">0</span> | Kalan Can: <span id="can" style="color:red; font-weight:bold;">3</span></p>
-        <button id="oyunBaslatBtn" class="giris-btn" onclick="oyunuBaslat()" style="margin-top:20px; font-size:1.2rem; padding:10px 25px;">BAŞLA!</button>
-        <div id="oyunAlani"></div>
-    </div>
+<main id="ana">
+  <div class="avatar" id="avatar" role="button" tabindex="0" aria-label="Spidey ile konuş"><div class="konus" id="konus">Selam kanka! 🕷️</div><img src="foto.jpg" alt="Spidey Gang"></div>
+  <h1 id="baslik">SPİDEY GANG</h1>
+  <p class="sub">Ağın içindeki çete 🕸️</p>
+  <nav class="links" id="linkler" aria-label="Instagram hesapları"></nav>
+<footer class="alt">Bu site 0 kilo ağ, %100 sevgiyle örüldü 🕸️<br>Şu an sayfayı izleyenler: sen 👀 ve duvardaki örümcek</footer>
+</main>
 
-    <!-- Meme Ekranı -->
-    <div id="memeEkrani">
-        <button id="memeKapatBtn" onclick="memeKapat()">❌ Kapat</button>
-        <img id="memeGorseli" src="" alt="Spidey Meme">
-        <button class="giris-btn" onclick="rastgeleMemeGoster()" style="margin-top:30px; font-size:1.1rem; padding:12px 25px;">🔄 Başka Göster</button>
-    </div>
+<div id="asma" role="toolbar" aria-label="Menü">
+  <div id="ipler">
+    <button class="ipli" style="--i:0;--u:30px" onclick="menuAc();oyunAc()"><span class="ic"><b>🎮</b></span><span class="et">Oyna!</span></button>
+    <button class="ipli" style="--i:1;--u:78px" onclick="menuAc();memeGoster()"><span class="ic"><b>😂</b></span><span class="et">Gül</span></button>
+    <button class="ipli" style="--i:2;--u:42px" onclick="menuAc();cicekGoster()"><span class="ic"><b>🌸</b></span><span class="et">Bu senin için</span></button>
+    <button class="ipli" style="--i:3;--u:88px" id="sesBtn" onclick="sesDegistir()"><span class="ic"><b>🔊</b></span><span class="et">Ses</span></button>
+    <button class="ipli" style="--i:4;--u:54px" id="venomBtn" onclick="venomDegistir()"><span class="ic"><b>🕷️</b></span><span class="et">Simbiyot</span></button>
+    <button class="ipli orumcek" style="--i:5;--u:34px" id="orumcekBtn" onclick="menuAc()" aria-expanded="false" aria-label="Menüyü aç"><span class="ic"><b>🕷️</b></span><span class="et">Menü</span></button>
+  </div>
+  <div class="cek">Çek beni!</div>
+</div>
 
-    <!-- YENİ: Çiçek Ekranı -->
-    <div id="cicekEkrani">
-        <button id="cicekKapatBtn" onclick="cicekKapat()">❌ Kapat</button>
-        <img id="cicekGorseliId" src="cicek.jpg" alt="Çiçek Veren Spidey">
-    </div>
+<div class="overlay" id="oyunEkrani">
+  <button class="close" onclick="oyunKapat()">Kapat ✕</button>
+  <h2 style="margin:0;font:400 2.2rem var(--head);letter-spacing:2px">🕸️ Ağ Fırlatma Eğitimi</h2>
+  <p class="hud">Puan: <span id="puan">0</span> &nbsp;|&nbsp; Can: <span id="can" style="color:#ff5468">3</span></p>
+  <button class="big-btn" id="baslatBtn" onclick="oyunBaslat()" style="font-size:1.3rem;padding:10px 28px">BAŞLA!</button>
+  <div id="alan"></div>
+</div>
 
-    <!-- Ana İçerik YENİ SIRALAMA -->
-    <div id="anaIcerik" class="container">
-        <img src="foto.jpg" alt="Spidey Gang Foto" class="header-img">
-        <h1>SPİDEY GANG</h1>
-        
-        <a href="https://www.instagram.com/mustafaabsdr" target="_blank" class="link-btn"><span class="ig-icon">📸</span> @mustafaabsdr</a>
-        <a href="https://www.instagram.com/bahagkmn0" target="_blank" class="link-btn"><span class="ig-icon">📸</span> @bahagkmn0</a>
-        <a href="https://www.instagram.com/kaanert_34" target="_blank" class="link-btn"><span class="ig-icon">📸</span> @kaanert_34</a>
-        <a href="https://www.instagram.com/enesbrylcn" target="_blank" class="link-btn"><span class="ig-icon">📸</span> @enesbrylcn</a>
-        <a href="https://www.instagram.com/burakerataa" target="_blank" class="link-btn"><span class="ig-icon">📸</span> @burakerataa</a>
-        <a href="https://www.instagram.com/abdullahdnmzz" target="_blank" class="link-btn"><span class="ig-icon">📸</span> @abdullahdnmzz</a>
-        <a href="https://www.instagram.com/nawwiecosplay" target="_blank" class="link-btn"><span class="ig-icon">📸</span> @nawwiecosplay</a>
-    </div>
+<div class="overlay" id="memeEkrani" style="z-index:4000">
+  <button class="close" onclick="kapat('memeEkrani')">Kapat ✕</button>
+  <img class="pic" id="memePic" src="" alt="Spidey meme">
+  <button class="big-btn" onclick="memeGoster()" style="font-size:1.2rem;padding:10px 26px">🔄 Başka göster</button>
+</div>
 
-    <script>
-        var muzik = document.getElementById("arkaMuzik");
-        var sesBtn = document.getElementById("sesButonu");
-        var oyunBtn = document.getElementById("oyunButonu");
-        var memeBtn = document.getElementById("memeButonu");
-        var venomBtn = document.getElementById("venomButonu");
-        var cicekBtn = document.getElementById("cicekButonu"); // YENİ
-        
-        var girisEkrani = document.getElementById("girisEkrani");
-        var anaIcerik = document.getElementById("anaIcerik");
-        var caliyor = false;
+<div class="overlay" id="cicekEkrani" style="z-index:4000">
+  <button class="close" onclick="kapat('cicekEkrani')">Kapat ✕</button>
+  <img class="pic" id="cicekPic" src="cicek.jpg" alt="Çiçek veren Spidey">
+</div>
 
-        function siteyeGir() {
-            muzik.play(); 
-            caliyor = true;
-            girisEkrani.style.opacity = "0";
-            setTimeout(function() {
-                girisEkrani.style.display = "none";
-                anaIcerik.style.display = "block";
-                sesBtn.style.display = "block";
-                oyunBtn.style.display = "block"; 
-                memeBtn.style.display = "block"; 
-                venomBtn.style.display = "block"; 
-                cicekBtn.style.display = "block"; // YENİ
-                agPartikulleriniOlustur();
-            }, 800); 
-        }
+<script>
+const $ = id => document.getElementById(id);
+const hesaplar = ['mustafaabsdr','bahagkmn0','kaanert_34','enesbrylcn','burakerataa','abdullahdnmzz','nawwiecosplay'];
+const IG = '<svg class="ig" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>';
 
-        function sarkiOynatDurdur() {
-            if (caliyor) {
-                muzik.pause();
-                sesBtn.innerHTML = "🎵 Ses";
-            } else {
-                muzik.play();
-                sesBtn.innerHTML = "🔊 Ses";
-            }
-            caliyor = !caliyor;
-        }
+const unvanlar = ['Baş Örümcek 👑','Ağ Ustası 🕸️','Duvar Tırmanıcı 🧗','Pizza Teslimatçısı 🍕','Simbiyot Avcısı 🖤','Örümcek Hissi Uzmanı 🚨','Kostüm Ustası 🎭'];
+$('linkler').innerHTML = hesaplar.map((h,i) =>
+  `<a class="link" style="--i:${i}" href="https://www.instagram.com/${h}" target="_blank" rel="noopener">
+     <span class="badge">${h[0].toUpperCase()}</span><span class="name">@${h}<small>${unvanlar[i]}</small></span>${IG}</a>`).join('');
 
-        var venomAktif = false;
-        function venomModunuAcKapat() {
-            var body = document.body;
-            venomAktif = !venomAktif;
-            
-            if (venomAktif) {
-                body.classList.add('venom-mode');
-                venomBtn.innerHTML = "🕸️ Geri Dön";
-            } else {
-                body.classList.remove('venom-mode');
-                venomBtn.innerHTML = "🕷️ Simbiyot";
-            }
-        }
+/* --- giriş & müzik --- */
+const muzik = $('muzik'); let caliyor = false;
+function girisYap(){
+  muzik.play().then(()=>{caliyor=true}).catch(()=>{caliyor=false; $('sesBtn').querySelector('b').textContent='🔇'});
+  $('girBtn').style.display='none'; $('yukle').style.display='flex';
+  const m = ['Ağ örülüyor... 🕸️','Ödev yarına bırakılıyor... 📚','Peter Parker uyandırılıyor... 😴','Pizza siparişi veriliyor... 🍕','Hazır! THWIP! 🕷️'];
+  let k = 0; $('yukMetin').textContent = m[0];
+  setTimeout(()=>{ $('yukBar').style.width='100%' }, 30);
+  const t = setInterval(()=>{
+    if(++k < m.length){ $('yukMetin').textContent = m[k]; return; }
+    clearInterval(t);
+    setTimeout(()=>{
+      $('giris').style.opacity = 0;
+      setTimeout(()=>{
+        $('giris').style.display='none'; $('ana').style.display='block';
+        $('asma').style.display='block'; $('ticker').style.display='block';
+        agOlustur();
+      }, 800);
+    }, 350);
+  }, 470);
+}
+function sesDegistir(){
+  caliyor ? muzik.pause() : muzik.play();
+  caliyor = !caliyor;
+  $('sesBtn').querySelector('b').textContent = caliyor ? '🔊' : '🔇';
+}
+function venomDegistir(){
+  const a = document.body.classList.toggle('venom');
+  $('venomBtn').querySelector('.et').textContent = a ? 'Geri dön' : 'Simbiyot';
+  $('venomBtn').querySelector('b').textContent = a ? '🕸️' : '🕷️';
+}
+function agOlustur(){
+  const c = $('particles');
+  for(let i=0;i<16;i++){
+    const w = document.createElement('div'); w.className='web'; w.textContent='🕸️';
+    w.style.cssText = `left:${Math.random()*100}vw;font-size:${15+Math.random()*15}px;animation-duration:${6+Math.random()*6}s;animation-delay:${Math.random()*6}s`;
+    c.appendChild(w);
+  }
+}
 
-        function agPartikulleriniOlustur() {
-            const container = document.getElementById('particles-container');
-            for (let i = 0; i < 20; i++) {
-                let ag = document.createElement('div');
-                ag.classList.add('spider-web');
-                ag.innerHTML = '🕸️'; 
-                ag.style.left = Math.random() * 100 + 'vw';
-                ag.style.animationDuration = (Math.random() * 5 + 5) + 's';
-                ag.style.animationDelay = (Math.random() * 5) + 's';
-                ag.style.fontSize = (Math.random() * 15 + 15) + 'px';
-                container.appendChild(ag);
-            }
-        }
+/* --- eğlence --- */
+const haberler = ['Örümcek Adam kirayı yine son gün ödedi','Ağ satan mağazada ağ tükendi, müşteriler ağlıyor','Örümcek hissi bugün 3 kez yanıldı, uzmanlar şaşkın',
+  'Duvardan duvara atlayan gençler asansöre binmeyi unuttu','Pizza teslimatı geç kaldı, mahalle ağla sarıldı',
+  'Simbiyot modu açıldı, hava karardı, kimse ışığı bulamıyor','Spidey Gang üyeleri yine aynı fotoğrafta birbirini gösteriyor'];
+$('haber').innerHTML = (haberler.map(h=>`<span>📰 ${h}</span>`).join('')).repeat(2);
 
-        // --- YENİ: Çiçek Ekranı Fonksiyonları ---
-        function cicekGoster() {
-            document.getElementById('cicekEkrani').style.display = 'flex';
-        }
+function toast(m){
+  document.querySelectorAll('.toast').forEach(t=>t.remove());
+  const t = document.createElement('div'); t.className='toast'; t.textContent=m;
+  document.body.appendChild(t); setTimeout(()=>t.remove(), 2300);
+}
+const lafler = ['Ben Spider-Man değilim... bir dakika, evet öyleyim!','Ödev mi? Ağ örüyorum, rahatsız etme.','Bugün 3 bina tırmandım, hepsi asansörsüz.',
+  'Kanka pizza var mı?','Büyük güç, büyük fatura.','Örümcek hissim diyor ki: canın çay çekti.','Beni dürtme, gıdıklanıyorum!','Yine mi sen? 😏',
+  'THWIP! Kaçırdım...','Sabah 8 dersine ağ atsam yetişir mi?'];
+let avTik = 0, sonLaf = -1, sonTik = 0;
+function avatarTikla(){
+  const a = $('avatar'); avTik++; sonTik = Date.now();
+  a.classList.remove('zipla','don'); void a.offsetWidth;
+  if(avTik % 10 === 0){ a.classList.add('don'); $('konus').textContent = 'Tamam tamam yeter, kafam döndü 😵‍💫'; return; }
+  a.classList.add('zipla');
+  let i; do{ i = Math.floor(Math.random()*lafler.length) }while(i===sonLaf);
+  sonLaf = i; $('konus').textContent = lafler[i];
+}
+$('avatar').addEventListener('click', avatarTikla);
+setInterval(()=>{
+  if(Date.now()-sonTik < 6000 || $('ana').style.display!=='block') return;
+  let i; do{ i = Math.floor(Math.random()*lafler.length) }while(i===sonLaf);
+  sonLaf = i; $('konus').textContent = lafler[i];
+}, 5000);
+$('avatar').addEventListener('keydown', e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); avatarTikla(); } });
 
-        function cicekKapat() {
-            document.getElementById('cicekEkrani').style.display = 'none';
-        }
+let bTik = 0;
+$('baslik').addEventListener('click', ()=>{
+  if(++bTik % 5) return;
+  toast('🍕 PİZZA YAĞMURU!');
+  for(let i=0;i<40;i++){
+    const p = document.createElement('div'); p.className='yag'; p.textContent='🍕';
+    p.style.left = Math.random()*95+'vw'; p.style.animationDuration = (2+Math.random()*2)+'s'; p.style.animationDelay = Math.random()+'s';
+    document.body.appendChild(p); setTimeout(()=>p.remove(), 5200);
+  }
+});
+const linkMesaj = ['Ağ fırlatıldı! 🕸️','THWIP! Profil yakalandı','Duvara yapıştın 🧗','Peter Parker onayladı ✅','Örümcek hissi: harika seçim!'];
+$('linkler').addEventListener('click', e=>{
+  if(e.target.closest('.link')) toast(linkMesaj[Math.floor(Math.random()*linkMesaj.length)]);
+});
 
-        const memeListesi = ['meme1.jpg', 'meme2.jpg', 'meme3.jpg', 'meme4.jpg', 'meme5.jpg', 'meme6.jpg'];
-        var sonMemeIndex = -1;
+/* --- asılı menü --- */
+function menuAc(){
+  const o = $('asma').classList.toggle('open');
+  const b = $('orumcekBtn');
+  b.querySelector('b').textContent = o ? '😜' : '🕷️';
+  b.querySelector('.et').textContent = o ? 'Kapat' : 'Menü';
+  b.setAttribute('aria-expanded', o);
+  b.classList.remove('wiggle'); void b.offsetWidth; b.classList.add('wiggle');
+}
 
-        function rastgeleMemeGoster() {
-            var rastgeleIndex = Math.floor(Math.random() * memeListesi.length);
-            while (rastgeleIndex === sonMemeIndex) {
-                rastgeleIndex = Math.floor(Math.random() * memeListesi.length);
-            }
-            sonMemeIndex = rastgeleIndex;
-            document.getElementById('memeGorseli').src = memeListesi[rastgeleIndex];
-            document.getElementById('memeEkrani').style.display = 'flex';
-        }
+/* --- kaplamalar --- */
+function kapat(id){ $(id).style.display='none'; }
+function cicekGoster(){ $('cicekEkrani').style.display='flex'; }
+const memeler = ['meme1.jpg','meme2.jpg','meme3.jpg','meme4.jpg','meme5.jpg','meme6.jpg'];
+let sonMeme = -1;
+function memeGoster(){
+  let i; do{ i = Math.floor(Math.random()*memeler.length) }while(i===sonMeme);
+  sonMeme = i; $('memePic').src = memeler[i]; $('memeEkrani').style.display='flex';
+}
 
-        function memeKapat() {
-            document.getElementById('memeEkrani').style.display = 'none';
-        }
+/* --- Tıklama patlamaları --- */
+const sesler = ['POW!','BAM!','THWIP!','ÇAT!','ZIP!','HOP!','ZAP!'];
+document.addEventListener('pointerdown', e=>{
+  if(e.target.closest('button,.overlay,.avatar,h1') || $('ana').style.display!=='block') return;
+  const b = document.createElement('div');
+  b.className='burst'; b.textContent = sesler[Math.floor(Math.random()*sesler.length)];
+  b.style.left = e.clientX+'px'; b.style.top = e.clientY+'px';
+  b.style.setProperty('--r', (Math.random()*30-15)+'deg');
+  document.body.appendChild(b); setTimeout(()=>b.remove(), 750);
+});
 
-        var oyunDongusu;
-        var puan = 0;
-        var can = 3;
-        var hiz = 3; 
+/* --- oyun --- */
+let dongu, puan=0, can=3, hiz=3.5, aktif=[];
+function oyunAc(){ $('oyunEkrani').style.display='flex'; }
+function oyunDurdur(){ clearInterval(dongu); aktif.forEach(clearInterval); aktif=[]; }
+function oyunKapat(){
+  oyunDurdur(); kapat('oyunEkrani');
+  $('alan').innerHTML=''; $('alan').style.display='none'; $('baslatBtn').style.display='block';
+}
+function oyunBaslat(){
+  oyunDurdur(); puan=0; can=3; hiz=3.5;
+  $('puan').textContent=puan; $('can').textContent=can;
+  $('baslatBtn').style.display='none';
+  const alan=$('alan'); alan.style.display='block'; alan.innerHTML='';
 
-        function oyunuAc() { document.getElementById('oyunEkrani').style.display = 'flex'; }
-        
-        function oyunuKapat() {
-            document.getElementById('oyunEkrani').style.display = 'none';
-            clearInterval(oyunDongusu);
-            document.getElementById('oyunAlani').innerHTML = '';
-            document.getElementById('oyunBaslatBtn').style.display = 'block';
-            document.getElementById('oyunAlani').style.display = 'none';
-        }
+  dongu = setInterval(()=>{
+    if(can<=0){
+      oyunDurdur();
+      alan.innerHTML=`<div class="bitti"><h3>OYUN BİTTİ!</h3><div class="hud">Puan: ${puan}</div></div>`;
+      setTimeout(()=>{ $('baslatBtn').style.display='block' }, 1500);
+      return;
+    }
+    const h = document.createElement('div');
+    h.className='hedef'; h.textContent='🎃';
+    h.style.left = Math.random()*80+'%'; h.style.top='-50px';
+    alan.appendChild(h);
 
-        function oyunuBaslat() {
-            puan = 0; can = 3; hiz = 3.5; 
-            document.getElementById('puan').innerText = puan;
-            document.getElementById('can').innerText = can;
-            document.getElementById('oyunBaslatBtn').style.display = 'none';
-            const alan = document.getElementById('oyunAlani');
-            alan.style.display = 'block'; alan.innerHTML = '';
+    let y=-50;
+    const d = setInterval(()=>{
+      y += hiz; h.style.top = y+'px';
+      if(y>alan.clientHeight-10){
+        clearInterval(d);
+        if(h.parentNode){ h.remove(); can--; $('can').textContent=Math.max(can,0); }
+      }
+    }, 20);
+    aktif.push(d);
 
-            oyunDongusu = setInterval(function() {
-                if(can <= 0) {
-                    clearInterval(oyunDongusu);
-                    alan.innerHTML = `<div class="game-over-container"><div class="game-over-title">OYUN BİTTİ!</div><div class="game-over-score">Puan: ${puan}</div></div>`;
-                    setTimeout(() => { document.getElementById('oyunBaslatBtn').style.display = 'block'; }, 2000);
-                    return;
-                }
-
-                let hedef = document.createElement('div');
-                hedef.innerText = '🎃'; hedef.className = 'hedef';
-                hedef.style.left = (Math.random() * 80) + '%'; hedef.style.top = '-50px';
-                alan.appendChild(hedef);
-
-                let dusus = -50;
-                let dususDongusu = setInterval(function() {
-                    dusus += hiz; hedef.style.top = dusus + 'px';
-                    if(dusus > 430) {
-                        clearInterval(dususDongusu);
-                        if(hedef.parentNode) { hedef.remove(); can--; document.getElementById('can').innerText = can; }
-                    }
-                }, 20); 
-
-                hedef.onmousedown = hedef.ontouchstart = function(e) {
-                    e.preventDefault(); clearInterval(dususDongusu);
-                    hedef.innerText = '🕸️'; hedef.style.opacity = '0.5';
-                    setTimeout(() => { if(hedef.parentNode) hedef.remove(); }, 200);
-                    puan += 10; document.getElementById('puan').innerText = puan;
-                    if(puan % 40 === 0) hiz += 0.8;
-                };
-            }, 600); 
-        }
-    </script>
+    h.onpointerdown = e=>{
+      e.preventDefault(); clearInterval(d);
+      h.textContent='🕸️'; h.style.opacity='.5';
+      setTimeout(()=>h.remove(),200);
+      puan += 10; $('puan').textContent=puan;
+      if(puan%40===0) hiz += .8;
+    };
+  }, 600);
+}
+</script>
 </body>
 </html>
