@@ -78,7 +78,8 @@
             100% { box-shadow: 0 0 0 0 rgba(220, 39, 67, 0); }
         }
 
-        #anaIcerik, #sesButonu, #venomButonu, #oyunButonu, #memeButonu { display: none; }
+        /* Başlangıçta gizli olan elementler */
+        #anaIcerik, #sesButonu, #venomButonu, #oyunButonu, #memeButonu, #cicekButonu { display: none; }
 
         /* --- ÜST KÖŞE BUTONLARI (KONTROL PANELİ) --- */
         
@@ -122,13 +123,24 @@
         }
         #memeButonu:hover { background: #2980b9; transform: scale(1.1); border-color: transparent;}
 
+        /* YENİ: Çiçek Butonu */
+        #cicekButonu {
+            position: fixed; top: 120px; left: 20px;
+            background: rgba(22, 27, 34, 0.7); backdrop-filter: blur(5px);
+            color: white; border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 10px 18px; border-radius: 30px;
+            cursor: pointer; z-index: 1000; font-weight: bold; font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        #cicekButonu:hover { background: #27ae60; transform: scale(1.1); border-color: transparent;}
+
         /* Oyun Ekranı */
         #oyunEkrani {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(13, 17, 23, 0.95); z-index: 3000;
             display: none; flex-direction: column; align-items: center; justify-content: center;
         }
-        #oyunKapatBtn, #memeKapatBtn {
+        #oyunKapatBtn, #memeKapatBtn, #cicekKapatBtn {
             position: absolute; top: 20px; right: 20px;
             background: transparent; border: 2px solid white; color: white;
             padding: 8px 15px; border-radius: 20px; cursor: pointer; font-weight: bold;
@@ -157,6 +169,16 @@
         }
         #memeGorseli {
             max-width: 90%; max-height: 60vh; border-radius: 15px; border: 4px solid #e1306c; box-shadow: 0 0 30px rgba(225, 48, 108, 0.6); animation: popIn 0.4s ease;
+        }
+
+        /* YENİ: Çiçek Ekranı Tasarımı */
+        #cicekEkrani {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(13, 17, 23, 0.95); z-index: 4000;
+            display: none; flex-direction: column; align-items: center; justify-content: center;
+        }
+        #cicekGorseliId {
+            max-width: 90%; max-height: 60vh; border-radius: 15px; border: 4px solid #27ae60; box-shadow: 0 0 30px rgba(39, 174, 96, 0.6); animation: popIn 0.4s ease;
         }
 
         /* Ana İçerik */
@@ -209,7 +231,8 @@
         
         body.venom-mode #sesButonu:hover, 
         body.venom-mode #oyunButonu:hover, 
-        body.venom-mode #memeButonu:hover { background: #222; border-color: transparent;}
+        body.venom-mode #memeButonu:hover,
+        body.venom-mode #cicekButonu:hover { background: #222; border-color: transparent;}
 
         @keyframes popIn { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
@@ -231,6 +254,9 @@
     <button id="oyunButonu" onclick="oyunuAc()">🎮 Oyun</button>
     <button id="memeButonu" onclick="rastgeleMemeGoster()">😂 Meme</button>
     
+    <!-- YENİ: Bu Senin İçin Butonu -->
+    <button id="cicekButonu" onclick="cicekGoster()">🌸 Bu Senin İçin</button>
+    
     <button id="sesButonu" onclick="sarkiOynatDurdur()">🔊 Ses</button>
     <button id="venomButonu" onclick="venomModunuAcKapat()">🕷️ Simbiyot</button>
 
@@ -250,7 +276,13 @@
         <button class="giris-btn" onclick="rastgeleMemeGoster()" style="margin-top:30px; font-size:1.1rem; padding:12px 25px;">🔄 Başka Göster</button>
     </div>
 
-    <!-- Ana İçerik -->
+    <!-- YENİ: Çiçek Ekranı -->
+    <div id="cicekEkrani">
+        <button id="cicekKapatBtn" onclick="cicekKapat()">❌ Kapat</button>
+        <img id="cicekGorseliId" src="cicek.jpg" alt="Çiçek Veren Spidey">
+    </div>
+
+    <!-- Ana İçerik YENİ SIRALAMA -->
     <div id="anaIcerik" class="container">
         <img src="foto.jpg" alt="Spidey Gang Foto" class="header-img">
         <h1>SPİDEY GANG</h1>
@@ -270,6 +302,7 @@
         var oyunBtn = document.getElementById("oyunButonu");
         var memeBtn = document.getElementById("memeButonu");
         var venomBtn = document.getElementById("venomButonu");
+        var cicekBtn = document.getElementById("cicekButonu"); // YENİ
         
         var girisEkrani = document.getElementById("girisEkrani");
         var anaIcerik = document.getElementById("anaIcerik");
@@ -286,6 +319,7 @@
                 oyunBtn.style.display = "block"; 
                 memeBtn.style.display = "block"; 
                 venomBtn.style.display = "block"; 
+                cicekBtn.style.display = "block"; // YENİ
                 agPartikulleriniOlustur();
             }, 800); 
         }
@@ -329,7 +363,15 @@
             }
         }
 
-        // İŞTE BURAYA meme6.jpg EKLENDİ! İstersen ileride buraya virgül koyup 'meme7.jpg' vs. yazabilirsin.
+        // --- YENİ: Çiçek Ekranı Fonksiyonları ---
+        function cicekGoster() {
+            document.getElementById('cicekEkrani').style.display = 'flex';
+        }
+
+        function cicekKapat() {
+            document.getElementById('cicekEkrani').style.display = 'none';
+        }
+
         const memeListesi = ['meme1.jpg', 'meme2.jpg', 'meme3.jpg', 'meme4.jpg', 'meme5.jpg', 'meme6.jpg'];
         var sonMemeIndex = -1;
 
