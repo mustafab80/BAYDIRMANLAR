@@ -98,7 +98,6 @@
 
         #anaIcerik, #sesButonu, #oyunButonu { display: none; }
 
-        /* Sağ üst ses butonu */
         #sesButonu {
             position: fixed;
             top: 20px; right: 20px;
@@ -112,7 +111,6 @@
         }
         #sesButonu:hover { background: #e1306c; transform: scale(1.1); border-color: transparent;}
 
-        /* Sol üst oyun butonu */
         #oyunButonu {
             position: fixed;
             top: 20px; left: 20px;
@@ -126,7 +124,7 @@
         }
         #oyunButonu:hover { background: #e1306c; transform: scale(1.1); border-color: transparent;}
 
-        /* Oyun Ekranı (Modal) */
+        /* Oyun Ekranı */
         #oyunEkrani {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(13, 17, 23, 0.95); z-index: 3000;
@@ -138,7 +136,7 @@
             padding: 8px 15px; border-radius: 20px; cursor: pointer; font-weight: bold;
         }
         #oyunAlani {
-            width: 90%; max-width: 400px; height: 400px;
+            width: 90%; max-width: 400px; height: 450px;
             border: 3px solid #e1306c; border-radius: 15px;
             position: relative; overflow: hidden; display: none; margin-top: 20px;
             background: rgba(0,0,0,0.5); box-shadow: 0 0 20px rgba(225, 48, 108, 0.5);
@@ -146,6 +144,26 @@
         .hedef {
             position: absolute; font-size: 2.5rem;
             cursor: crosshair; user-select: none;
+        }
+
+        /* YENİ: Oyun Bitti Ekranı Tasarımı */
+        .game-over-container {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            border-radius: 12px; z-index: 10;
+        }
+        .game-over-title {
+            font-size: 2.8rem; color: #ff0000; font-weight: 900;
+            letter-spacing: 3px; text-transform: uppercase;
+            text-shadow: 2px 2px 0px #fff, -2px -2px 0px #fff, 0 0 25px #ff0000;
+            margin-bottom: 10px; text-align: center;
+            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .game-over-score {
+            font-size: 1.5rem; color: #ffffff; font-weight: bold;
+            background: rgba(225, 48, 108, 0.8); padding: 5px 15px; border-radius: 10px;
+            animation: fadeIn 1s ease;
         }
 
         .container {
@@ -204,11 +222,9 @@
         <button class="giris-btn" onclick="siteyeGir()">🕷️ Müzikle Giriş Yap 🎵</button>
     </div>
 
-    <!-- Üst Butonlar -->
     <button id="oyunButonu" onclick="oyunuAc()">🎮 Oyunu Oyna</button>
     <button id="sesButonu" onclick="sarkiOynatDurdur()">🔊 Sesi Kapat</button>
 
-    <!-- Oyun Ekranı -->
     <div id="oyunEkrani">
         <button id="oyunKapatBtn" onclick="oyunuKapat()">❌ Kapat</button>
         <h2 style="color:#e1306c;">🕸️ Ağ Fırlatma Eğitimi 🕸️</h2>
@@ -246,7 +262,7 @@
                 girisEkrani.style.display = "none";
                 anaIcerik.style.display = "block";
                 buton.style.display = "block";
-                oyunBtn.style.display = "block"; // Oyun butonunu göster
+                oyunBtn.style.display = "block"; 
                 agPartikulleriniOlustur();
             }, 800); 
         }
@@ -276,11 +292,11 @@
             }
         }
 
-        // --- OYUN KODLARI ---
+        // --- GÜNCELLENMİŞ OYUN KODLARI ---
         var oyunDongusu;
         var puan = 0;
         var can = 3;
-        var hiz = 2;
+        var hiz = 3; // Başlangıç hızı arttırıldı
 
         function oyunuAc() {
             document.getElementById('oyunEkrani').style.display = 'flex';
@@ -297,7 +313,7 @@
         function oyunuBaslat() {
             puan = 0;
             can = 3;
-            hiz = 2; // Başlangıç hızı
+            hiz = 3.5; // Daha hızlı başlangıç
             document.getElementById('puan').innerText = puan;
             document.getElementById('can').innerText = can;
             
@@ -306,11 +322,18 @@
             alan.style.display = 'block';
             alan.innerHTML = '';
 
-            // Her saniye yeni bomba üret
+            // Bombalar artık çok daha sık çıkıyor (600ms = 0.6 saniye)
             oyunDongusu = setInterval(function() {
                 if(can <= 0) {
                     clearInterval(oyunDongusu);
-                    alan.innerHTML = '<h3 style="color:white; margin-top:40%;">OYUN BİTTİ! Puan: '+puan+'</h3>';
+                    
+                    // Yeni havalı Oyun Bitti ekranı
+                    alan.innerHTML = `
+                        <div class="game-over-container">
+                            <div class="game-over-title">OYUN BİTTİ!</div>
+                            <div class="game-over-score">Puan: ${puan}</div>
+                        </div>`;
+                        
                     setTimeout(() => { document.getElementById('oyunBaslatBtn').style.display = 'block'; }, 2000);
                     return;
                 }
@@ -327,8 +350,7 @@
                     dusus += hiz;
                     hedef.style.top = dusus + 'px';
 
-                    // Bomba aşağı düştüyse (Kaçtıysa)
-                    if(dusus > 380) {
+                    if(dusus > 430) {
                         clearInterval(dususDongusu);
                         if(hedef.parentNode) {
                             hedef.remove();
@@ -336,22 +358,22 @@
                             document.getElementById('can').innerText = can;
                         }
                     }
-                }, 20); // 20 milisaniyede bir hareket et
+                }, 20); 
 
-                // Bombaya tıklandığında (Ağ atıldığında)
-                hedef.onmousedown = hedef.ontouchstart = function() {
+                hedef.onmousedown = hedef.ontouchstart = function(e) {
+                    e.preventDefault(); // Telefondaki çift tıklama zoomunu engeller
                     clearInterval(dususDongusu);
-                    hedef.innerText = '🕸️'; // Vurulunca ağa dönüşür
+                    hedef.innerText = '🕸️'; 
                     hedef.style.opacity = '0.5';
-                    setTimeout(() => { if(hedef.parentNode) hedef.remove(); }, 300);
+                    setTimeout(() => { if(hedef.parentNode) hedef.remove(); }, 200);
                     
                     puan += 10;
                     document.getElementById('puan').innerText = puan;
                     
-                    // Puan arttıkça oyun hızlansın
-                    if(puan % 50 === 0) hiz += 0.5;
+                    // Puan arttıkça daha hızlı hızlanacak
+                    if(puan % 40 === 0) hiz += 0.8;
                 };
-            }, 1000); 
+            }, 600); // 1000'den 600'e çektim, artık yağmur gibi yağacak!
         }
     </script>
 </body>
