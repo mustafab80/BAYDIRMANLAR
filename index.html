@@ -78,12 +78,10 @@
             100% { box-shadow: 0 0 0 0 rgba(220, 39, 67, 0); }
         }
 
-        /* Başlangıçta gizli olan elementler */
         #anaIcerik, #sesButonu, #venomButonu, #oyunButonu, #memeButonu { display: none; }
 
         /* --- ÜST KÖŞE BUTONLARI (KONTROL PANELİ) --- */
         
-        /* SAĞ ÜST 1: Ses Butonu */
         #sesButonu {
             position: fixed; top: 20px; right: 20px;
             background: rgba(22, 27, 34, 0.7); backdrop-filter: blur(5px);
@@ -94,7 +92,6 @@
         }
         #sesButonu:hover { background: #e1306c; transform: scale(1.1); border-color: transparent;}
 
-        /* SAĞ ÜST 2: Venom (Simbiyot) Butonu */
         #venomButonu {
             position: fixed; top: 70px; right: 20px;
             background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(5px);
@@ -105,7 +102,6 @@
         }
         #venomButonu:hover { background: #000; transform: scale(1.1); box-shadow: 0 0 20px rgba(255,255,255,0.4); border-color: transparent;}
 
-        /* SOL ÜST 1: Oyun Butonu */
         #oyunButonu {
             position: fixed; top: 20px; left: 20px;
             background: rgba(22, 27, 34, 0.7); backdrop-filter: blur(5px);
@@ -116,7 +112,6 @@
         }
         #oyunButonu:hover { background: #e1306c; transform: scale(1.1); border-color: transparent;}
 
-        /* SOL ÜST 2: Meme Butonu */
         #memeButonu {
             position: fixed; top: 70px; left: 20px;
             background: rgba(22, 27, 34, 0.7); backdrop-filter: blur(5px);
@@ -126,8 +121,6 @@
             transition: all 0.3s ease;
         }
         #memeButonu:hover { background: #2980b9; transform: scale(1.1); border-color: transparent;}
-
-        /* ========================================= */
 
         /* Oyun Ekranı */
         #oyunEkrani {
@@ -257,7 +250,7 @@
         <button class="giris-btn" onclick="rastgeleMemeGoster()" style="margin-top:30px; font-size:1.1rem; padding:12px 25px;">🔄 Başka Göster</button>
     </div>
 
-    <!-- Ana İçerik YENİ SIRALAMA -->
+    <!-- Ana İçerik -->
     <div id="anaIcerik" class="container">
         <img src="foto.jpg" alt="Spidey Gang Foto" class="header-img">
         <h1>SPİDEY GANG</h1>
@@ -336,7 +329,8 @@
             }
         }
 
-        const memeListesi = ['meme1.jpg', 'meme2.jpg', 'meme3.jpg', 'meme4.jpg', 'meme5.jpg'];
+        // İŞTE BURAYA meme6.jpg EKLENDİ! İstersen ileride buraya virgül koyup 'meme7.jpg' vs. yazabilirsin.
+        const memeListesi = ['meme1.jpg', 'meme2.jpg', 'meme3.jpg', 'meme4.jpg', 'meme5.jpg', 'meme6.jpg'];
         var sonMemeIndex = -1;
 
         function rastgeleMemeGoster() {
