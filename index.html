@@ -94,7 +94,7 @@
         }
         #sesButonu:hover { background: #e1306c; transform: scale(1.1); border-color: transparent;}
 
-        /* SAĞ ÜST 2: Venom Butonu */
+        /* SAĞ ÜST 2: Venom (Simbiyot) Butonu */
         #venomButonu {
             position: fixed; top: 70px; right: 20px;
             background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(5px);
@@ -206,7 +206,7 @@
 
         .ig-icon { margin-right: 10px; font-size: 1.3rem; }
 
-        /* VENOM (SEMBİYOT) MODU CSS'İ */
+        /* VENOM (SİMBİYOT) MODU CSS'İ */
         body.venom-mode::before { background: rgba(0, 0, 0, 0.92); }
         body.venom-mode .spider-web { color: rgba(0, 0, 0, 0.95); text-shadow: 0 0 5px rgba(255, 255, 255, 0.2); }
         body.venom-mode .header-img { border-color: #333; box-shadow: 0 0 35px rgba(0,0,0,0.9); filter: grayscale(100%) contrast(120%); }
@@ -239,7 +239,7 @@
     <button id="memeButonu" onclick="rastgeleMemeGoster()">😂 Meme</button>
     
     <button id="sesButonu" onclick="sarkiOynatDurdur()">🔊 Ses</button>
-    <button id="venomButonu" onclick="venomModunuAcKapat()">🕷️ Sembiyot</button>
+    <button id="venomButonu" onclick="venomModunuAcKapat()">🕷️ Simbiyot</button>
 
     <!-- Oyun Ekranı -->
     <div id="oyunEkrani">
@@ -318,7 +318,7 @@
                 venomBtn.innerHTML = "🕸️ Geri Dön";
             } else {
                 body.classList.remove('venom-mode');
-                venomBtn.innerHTML = "🕷️ Sembiyot";
+                venomBtn.innerHTML = "🕷️ Simbiyot";
             }
         }
 
