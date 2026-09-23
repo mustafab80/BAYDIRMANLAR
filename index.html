@@ -30,7 +30,59 @@
             z-index: -1;
         }
 
-        /* Sağ üstteki Müzik Butonu Tasarımı */
+        /* --- YENİ: GİRİŞ EKRANI (Splash Screen) --- */
+        #girisEkrani {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('AMUDA.jpeg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            transition: opacity 0.8s ease;
+        }
+
+        #girisEkrani::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.85); /* Giriş ekranı daha karanlık */
+            z-index: -1;
+        }
+
+        .giris-btn {
+            background: linear-gradient(45deg, #e63946, #dc2743);
+            color: #ffffff;
+            border: none;
+            padding: 18px 35px;
+            font-size: 1.5rem;
+            font-weight: 800;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(220, 39, 67, 0.6);
+            transition: all 0.3s ease;
+            animation: pulse 1.5s infinite; /* Nefes alma efekti */
+            z-index: 1;
+        }
+
+        .giris-btn:hover {
+            transform: scale(1.1);
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(220, 39, 67, 0.7); }
+            70% { box-shadow: 0 0 0 20px rgba(220, 39, 67, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(220, 39, 67, 0); }
+        }
+
+        /* Başlangıçta sitenin asıl halini gizliyoruz */
+        #anaIcerik, #sesButonu {
+            display: none;
+        }
+
+        /* Sağ üstteki Müzik Butonu */
         #sesButonu {
             position: fixed;
             top: 20px;
@@ -46,8 +98,6 @@
             font-weight: bold;
             font-size: 0.9rem;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-            animation: fadeIn 1s ease 0.5s backwards;
         }
 
         #sesButonu:hover {
@@ -104,105 +154,80 @@
             animation: fadeInUp 0.5s ease backwards;
         }
 
-        .link-btn:nth-of-type(1) { animation-delay: 0.4s; }
-        .link-btn:nth-of-type(2) { animation-delay: 0.5s; }
-        .link-btn:nth-of-type(3) { animation-delay: 0.6s; }
-        .link-btn:nth-of-type(4) { animation-delay: 0.7s; }
-        .link-btn:nth-of-type(5) { animation-delay: 0.8s; }
-        .link-btn:nth-of-type(6) { animation-delay: 0.9s; }
-        .link-btn:nth-of-type(7) { animation-delay: 1.0s; }
+        .link-btn:nth-of-type(1) { animation-delay: 0.2s; }
+        .link-btn:nth-of-type(2) { animation-delay: 0.3s; }
+        .link-btn:nth-of-type(3) { animation-delay: 0.4s; }
+        .link-btn:nth-of-type(4) { animation-delay: 0.5s; }
+        .link-btn:nth-of-type(5) { animation-delay: 0.6s; }
+        .link-btn:nth-of-type(6) { animation-delay: 0.7s; }
+        .link-btn:nth-of-type(7) { animation-delay: 0.8s; }
 
         .link-btn:hover {
             transform: scale(1.05) translateY(-5px);
             background: linear-gradient(45deg, #e63946, #dc2743);
             border-color: transparent;
             box-shadow: 0 10px 25px rgba(220, 39, 67, 0.6);
-            letter-spacing: 1px;
         }
 
-        .ig-icon {
-            margin-right: 10px;
-            font-size: 1.3rem;
-        }
+        .ig-icon { margin-right: 10px; font-size: 1.3rem; }
 
-        @keyframes popIn {
-            from { transform: scale(0); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(40px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        @keyframes popIn { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 
-    <!-- Arka plan müziği dosyası. autoplay özelliği eklendi -->
-    <audio id="arkaMuzik" loop autoplay>
+    <audio id="arkaMuzik" loop>
         <source src="sarki.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- Müzik Kontrol Butonu. Başlangıç metni değişti -->
-    <button id="sesButonu" onclick="sarkiOynatDurdur()">🔊 Sesi Kapat</button>
-
-    <div class="container">
-        <img src="foto.jpg" alt="Spidey Gang Foto" class="header-img">
-        
-        <h1>SPİDEY GANG</h1>
-
-        <a href="https://www.instagram.com/mustafaabsdr" target="_blank" class="link-btn">
-            <span class="ig-icon">📸</span> @mustafaabsdr
-        </a>
-
-        <a href="https://www.instagram.com/nawwiecosplay" target="_blank" class="link-btn">
-            <span class="ig-icon">📸</span> @nawwiecosplay
-        </a>
-        
-        <a href="https://www.instagram.com/kaanert_34" target="_blank" class="link-btn">
-            <span class="ig-icon">📸</span> @kaanert_34
-        </a>
-
-        <a href="https://www.instagram.com/enesbrylcn" target="_blank" class="link-btn">
-            <span class="ig-icon">📸</span> @enesbrylcn
-        </a>
-
-        <a href="https://www.instagram.com/burakerataa" target="_blank" class="link-btn">
-            <span class="ig-icon">📸</span> @burakerataa
-        </a>
-
-        <a href="https://www.instagram.com/abdullahdnmzz" target="_blank" class="link-btn">
-            <span class="ig-icon">📸</span> @abdullahdnmzz
-        </a>
-
-        <a href="https://www.instagram.com/bahagkmn0" target="_blank" class="link-btn">
-            <span class="ig-icon">📸</span> @bahagkmn0
-        </a>
-
+    <!-- YENİ: Başlangıçta Ekranda Çıkan Giriş Ekranı -->
+    <div id="girisEkrani">
+        <button class="giris-btn" onclick="siteyeGir()">🕷️ Müzikle Giriş Yap 🎵</button>
     </div>
 
-    <!-- Müzik Butonu İçin Gerekli Kodlar -->
+    <!-- Sağ Üst Buton -->
+    <button id="sesButonu" onclick="sarkiOynatDurdur()">🔊 Sesi Kapat</button>
+
+    <!-- Asıl Site İçeriği -->
+    <div id="anaIcerik" class="container">
+        <img src="foto.jpg" alt="Spidey Gang Foto" class="header-img">
+        <h1>SPİDEY GANG</h1>
+        
+        <a href="https://www.instagram.com/mustafaabsdr" target="_blank" class="link-btn"><span class="ig-icon">📸</span> @mustafaabsdr</a>
+        <a href="https://www.instagram.com/nawwiecosplay" target="_blank" class="link-btn"><span class="ig-icon">📸</span> @nawwiecosplay</a>
+        <a href="https://www.instagram.com/kaanert_34" target="_blank" class="link-btn"><span class="ig-icon">📸</span> @kaanert_34</a>
+        <a href="https://www.instagram.com/enesbrylcn" target="_blank" class="link-btn"><span class="ig-icon">📸</span> @enesbrylcn</a>
+        <a href="https://www.instagram.com/burakerataa" target="_blank" class="link-btn"><span class="ig-icon">📸</span> @burakerataa</a>
+        <a href="https://www.instagram.com/abdullahdnmzz" target="_blank" class="link-btn"><span class="ig-icon">📸</span> @abdullahdnmzz</a>
+        <a href="https://www.instagram.com/bahagkmn0" target="_blank" class="link-btn"><span class="ig-icon">📸</span> @bahagkmn0</a>
+    </div>
+
     <script>
         var muzik = document.getElementById("arkaMuzik");
         var buton = document.getElementById("sesButonu");
-        // Tarayıcı autoplay'e izin verdiyse çalıyor kabul ediyoruz.
-        var caliyor = true; 
-        
-        // Sayfa yüklendiğinde müziği çalmayı zorla (Tarayıcı izin verirse)
-        window.onload = function() {
-            var promise = muzik.play();
-            if (promise !== undefined) {
-                promise.catch(error => {
-                    // Otomatik çalma engellendi
-                    caliyor = false;
-                    buton.innerHTML = "🎵 Sesi Aç";
-                });
-            }
-        };
+        var girisEkrani = document.getElementById("girisEkrani");
+        var anaIcerik = document.getElementById("anaIcerik");
+        var caliyor = false;
 
+        // Kullanıcı giriş butonuna bastığında çalışacak fonksiyon
+        function siteyeGir() {
+            muzik.play(); // Sesi başlat
+            caliyor = true;
+            
+            // Giriş ekranını yavaşça kaybet
+            girisEkrani.style.opacity = "0";
+            setTimeout(function() {
+                girisEkrani.style.display = "none";
+                
+                // Ana siteyi ve sağ üstteki butonu göster
+                anaIcerik.style.display = "block";
+                buton.style.display = "block";
+            }, 800); // 0.8 saniye (animasyon süresi) bekle
+        }
+
+        // Sağ üstteki butona basıldığında çalışacak fonksiyon
         function sarkiOynatDurdur() {
             if (caliyor) {
                 muzik.pause();
