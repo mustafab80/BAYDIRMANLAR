@@ -141,14 +141,13 @@
 </head>
 <body>
 
-    <!-- Arka plan müziği dosyası -->
-    <!-- sarki.mp3 dosyasını yüklemeyi unutma! -->
-    <audio id="arkaMuzik" loop>
+    <!-- Arka plan müziği dosyası. autoplay özelliği eklendi -->
+    <audio id="arkaMuzik" loop autoplay>
         <source src="sarki.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- Müzik Kontrol Butonu -->
-    <button id="sesButonu" onclick="sarkiOynatDurdur()">🎵 Sesi Aç</button>
+    <!-- Müzik Kontrol Butonu. Başlangıç metni değişti -->
+    <button id="sesButonu" onclick="sarkiOynatDurdur()">🔊 Sesi Kapat</button>
 
     <div class="container">
         <img src="foto.jpg" alt="Spidey Gang Foto" class="header-img">
@@ -189,7 +188,20 @@
     <script>
         var muzik = document.getElementById("arkaMuzik");
         var buton = document.getElementById("sesButonu");
-        var caliyor = false;
+        // Tarayıcı autoplay'e izin verdiyse çalıyor kabul ediyoruz.
+        var caliyor = true; 
+        
+        // Sayfa yüklendiğinde müziği çalmayı zorla (Tarayıcı izin verirse)
+        window.onload = function() {
+            var promise = muzik.play();
+            if (promise !== undefined) {
+                promise.catch(error => {
+                    // Otomatik çalma engellendi
+                    caliyor = false;
+                    buton.innerHTML = "🎵 Sesi Aç";
+                });
+            }
+        };
 
         function sarkiOynatDurdur() {
             if (caliyor) {
