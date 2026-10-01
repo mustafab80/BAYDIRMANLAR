@@ -152,6 +152,13 @@ h1{font:400 clamp(2.6rem,13vw,3.8rem)/1 var(--head);letter-spacing:3px;margin:0 
 h1{cursor:pointer;user-select:none;-webkit-user-select:none}
 .alt{margin-top:34px;font-weight:700;font-size:.85rem;opacity:.75;line-height:1.7}
 
+/* ZİYARETÇİ SAYACI */
+#sayac{display:none;position:fixed;top:38px;left:12px;z-index:1100;background:var(--paper);color:var(--ink);
+  border:3px solid var(--ink);border-radius:14px;padding:6px 12px;font:900 .8rem var(--body);box-shadow:4px 4px 0 var(--blue);
+  transition:background .8s,color .8s}
+#sayac b{font:400 1.1rem var(--head);letter-spacing:1px;margin-left:4px}
+body.venom #sayac{background:#141414;color:#f2f2f2;border-color:#f2f2f2;box-shadow:4px 4px 0 #555}
+
 /* SİMBİYOT MODU */
 body.venom .ticker{background:#222}
 body.venom{--red:#f2f2f2;--blue:#6b6b6b;--shadow-a:#f2f2f2;--shadow-b:#555;--paper:#141414;}
@@ -188,6 +195,7 @@ body.venom .ipli::before{background:rgba(255,255,255,.5)}
 </div>
 
 <div class="ticker" id="ticker"><b>SON DAKİKA</b><div class="ticker-in" id="haber"></div></div>
+<div id="sayac">👀 Ziyaretçi <b id="sayacSayi">...</b></div>
 
 <main id="ana">
   <div class="avatar" id="avatar" role="button" tabindex="0" aria-label="Spidey ile konuş"><div class="konus" id="konus">Selam kanka! 🕷️</div><img src="foto.jpg" alt="Spidey Gang"></div>
@@ -254,6 +262,8 @@ function girisYap(){
       setTimeout(()=>{
         $('giris').style.display='none'; $('ana').style.display='block';
         $('asma').style.display='block'; $('ticker').style.display='block';
+        $('sayac').style.display='block';
+        sayaciArttir();
         agOlustur();
       }, 800);
     }, 350);
@@ -275,6 +285,28 @@ function agOlustur(){
     const w = document.createElement('div'); w.className='web'; w.textContent='🕸️';
     w.style.cssText = `left:${Math.random()*100}vw;font-size:${15+Math.random()*15}px;animation-duration:${6+Math.random()*6}s;animation-delay:${Math.random()*6}s`;
     c.appendChild(w);
+  }
+}
+
+/* --- ziyaretçi sayacı --- */
+function sayiYaz(n){
+  const el = $('sayacSayi'); const hedef = Number(n)||0; let g = 0;
+  const adim = Math.max(1, Math.ceil(hedef/30));
+  const t = setInterval(()=>{ g = Math.min(hedef, g+adim); el.textContent = g; if(g>=hedef) clearInterval(t); }, 25);
+}
+async function sayaciArttir(){
+  const ANAHTAR = 'spideyGangSayildi';
+  const dahaOnceSayildi = localStorage.getItem(ANAHTAR) === '1';
+  const uc = dahaOnceSayildi
+    ? 'https://api.counterapi.dev/v1/spidey-gang-site/ziyaretci'
+    : 'https://api.counterapi.dev/v1/spidey-gang-site/ziyaretci/up';
+  try{
+    const r = await fetch(uc, {cache:'no-store'});
+    const d = await r.json();
+    sayiYaz(d.count ?? d.value ?? 0);
+    if(!dahaOnceSayildi) localStorage.setItem(ANAHTAR, '1');
+  }catch(e){
+    $('sayacSayi').textContent = '???';
   }
 }
 
