@@ -297,10 +297,11 @@ function sayiYaz(n){
 async function sayaciArttir(){
   const ANAHTAR = 'spideyGangSayildi';
   const dahaOnceSayildi = localStorage.getItem(ANAHTAR) === '1';
-  const KEY = 'spidey_gang_baydirmanlar_v1'; // benzersiz sayaç adı, değiştirme
+  const NS = 'baydirmanlar-github-io'; // namespace: siteye özel
+  const KEY = 'spidey-gang-ziyaretci';
   const uc = dahaOnceSayildi
-    ? `https://countapi.mileshilliard.com/api/v1/get/${KEY}`
-    : `https://countapi.mileshilliard.com/api/v1/hit/${KEY}`;
+    ? `https://abacus.jasoncameron.dev/get/${NS}/${KEY}`
+    : `https://abacus.jasoncameron.dev/hit/${NS}/${KEY}`;
   try{
     const r = await fetch(uc, {cache:'no-store'});
     const d = await r.json();
