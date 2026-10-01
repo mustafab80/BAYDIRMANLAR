@@ -297,13 +297,14 @@ function sayiYaz(n){
 async function sayaciArttir(){
   const ANAHTAR = 'spideyGangSayildi';
   const dahaOnceSayildi = localStorage.getItem(ANAHTAR) === '1';
+  const KEY = 'spidey_gang_baydirmanlar_v1'; // benzersiz sayaç adı, değiştirme
   const uc = dahaOnceSayildi
-    ? 'https://api.counterapi.dev/v1/spidey-gang-site/ziyaretci'
-    : 'https://api.counterapi.dev/v1/spidey-gang-site/ziyaretci/up';
+    ? `https://countapi.mileshilliard.com/api/v1/get/${KEY}`
+    : `https://countapi.mileshilliard.com/api/v1/hit/${KEY}`;
   try{
     const r = await fetch(uc, {cache:'no-store'});
     const d = await r.json();
-    sayiYaz(d.count ?? d.value ?? 0);
+    sayiYaz(d.value ?? 0);
     if(!dahaOnceSayildi) localStorage.setItem(ANAHTAR, '1');
   }catch(e){
     $('sayacSayi').textContent = '???';
